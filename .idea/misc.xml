@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Eproject/app/src/main/res/drawable-anydpi/ic_back.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable-anydpi/ic_home.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable-anydpi/ic_img.xml" value="0.158" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable-anydpi/ic_lock.xml" value="0.158" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable-anydpi/ic_notification.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable-anydpi/ic_person.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable-anydpi/ic_play.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable-anydpi/ic_search.xml" value="0.22" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable-anydpi/ic_shop.xml" value="0.1015" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/bg_button.xml" value="0.183" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/bg_circle_radius_primary.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/bg_custom_btn_person.xml" value="0.158" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/bg_image_button.xml" value="0.204" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/bg_img.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/bg_post.xml" value="0.158" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/bg_radius_bottom_corner.xml" value="0.158" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/bg_search.xml" value="0.264" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/custom_input.xml" value="0.176" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/ic_logo.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/ic_logo_background.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/ic_logo_eatoday.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/ic_logo_foreground.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/drawable/ic_logo_new_background.xml" value="0.204" />
+        <entry key="..\:/Eproject/app/src/main/res/font/font_text.xml" value="0.21328125" />
+        <entry key="..\:/Eproject/app/src/main/res/layout-land/activity_main.xml" value="0.21516754850088182" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/a.xml" value="0.271875" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/account_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/acitivity_person.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/activity_notification.xml" value="0.253125" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/detail_page.xml" value="0.16" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/list_item_category.xml" value="0.1634963768115942" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/login_activity.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/main_update.xml" value="0.2" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/person.xml" value="0.264" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/post_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/shop_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/sign_up.xml" value="0.25" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/tool_bar.xml" value="0.4" />
+        <entry key="..\:/Eproject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18425925925925926" />
+        <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.151" />
+        <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo_1.xml" value="0.124" />
+        <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo_new.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo_new_round.xml" value="0.18" />
+        <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo_round.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
