@@ -13,7 +13,6 @@ import eatoday.com.databinding.ActivityMainBinding;
 
 public class MainUpdate extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
-    ActivityMainBinding binding;
     public Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

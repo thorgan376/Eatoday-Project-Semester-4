@@ -33,6 +33,11 @@
             android:name=".MainUpdate"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".PostAcitvity"
+            android:exported="true"
+            android:parentActivityName=".PersonActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -124,9 +124,10 @@
                 android:background="@drawable/bg_custom_btn_person"
                 />
             <Button
+                android:id="@+id/foods"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:text="Note"
+                android:text="Foods"
                 android:textAllCaps="false"
                 android:textAlignment="viewStart"
                 android:drawablePadding="12dp"
@@ -137,6 +138,7 @@
                 android:background="@drawable/bg_custom_btn_person"
                 />
             <Button
+                android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
             android:textAllCaps="false"

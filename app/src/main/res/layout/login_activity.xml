@@ -5,11 +5,13 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:fitsSystemWindows="true">
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         app:elevation="0dp">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_detail"
             android:layout_width="match_parent"
@@ -23,15 +25,15 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:drawableRight="@drawable/ic_person"
                     android:drawablePadding="10dp"
-                    android:textColor="@color/black"
+                    android:fontFamily="@font/font_outfit_bold"
                     android:text="Login Account"
-                    android:textSize="24dp"
-                    android:fontFamily="@font/font_outfit_bold"/>
+                    android:textColor="@color/black"
+                    android:textSize="24dp" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 

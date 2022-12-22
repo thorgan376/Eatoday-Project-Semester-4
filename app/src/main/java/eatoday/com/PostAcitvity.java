@@ -1,0 +1,41 @@
+package eatoday.com;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+public class PostAcitvity extends AppCompatActivity {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.post_activity);
+//        BottomNavigationView bottomNavigationView;
+//        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+//        bottomNavigationView.setSelectedItemId(R.id.person);
+//        bottomNavigationView.setOnItemSelectedListener((@NonNull MenuItem item) -> {
+//            switch(item.getItemId())
+//            {
+//                case R.id.person:
+//                    return true;
+//
+//                case R.id.shop:
+//                    startActivity(new Intent(getApplicationContext(), ShopActivity.class));
+//                    overridePendingTransition(0,0);
+//                    return true;
+//                case R.id.settings:
+//                    startActivity(new Intent(getApplicationContext(), MainUpdate.class));
+//                    overridePendingTransition(0,0);
+//                    return true;
+//                case R.id.home:
+//                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//                    overridePendingTransition(0,0);
+//                    return true;
+//            }
+//            return false;
+//        });
+    }
+    }
