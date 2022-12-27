@@ -37,7 +37,17 @@
         <entry key="..\:/Eproject/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Eproject/app/src/main/res/layout/activity_notification.xml" value="0.253125" />
         <entry key="..\:/Eproject/app/src/main/res/layout/detail_page.xml" value="0.16" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_detail__food.xml" value="0.25416666666666665" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_loginaccount.xml" value="0.25416666666666665" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_my_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_my_post.xml" value="0.25416666666666665" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_notification.xml" value="0.11302083333333333" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_profile.xml" value="0.16" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_profiles.xml" value="0.24010416666666667" />
         <entry key="..\:/Eproject/app/src/main/res/layout/list_item_category.xml" value="0.1634963768115942" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/list_product_activity.xml" value="0.12360688956433637" />
         <entry key="..\:/Eproject/app/src/main/res/layout/login_activity.xml" value="0.2" />
         <entry key="..\:/Eproject/app/src/main/res/layout/main_update.xml" value="0.2" />
         <entry key="..\:/Eproject/app/src/main/res/layout/person.xml" value="0.264" />
@@ -45,13 +55,26 @@
         <entry key="..\:/Eproject/app/src/main/res/layout/shop_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/Eproject/app/src/main/res/layout/sign_up.xml" value="0.25" />
         <entry key="..\:/Eproject/app/src/main/res/layout/tool_bar.xml" value="0.4" />
-        <entry key="..\:/Eproject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18425925925925926" />
+        <entry key="..\:/Eproject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.151" />
         <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.1" />
         <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo_1.xml" value="0.124" />
         <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo_new.xml" value="0.18" />
         <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo_new_round.xml" value="0.18" />
         <entry key="..\:/Eproject/app/src/main/res/mipmap-anydpi-v26/ic_logo_round.xml" value="0.1" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/drawable/bottom_nav_icon_color_selector.xml" value="0.129" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/account_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/fragment_home.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/fragment_my_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/fragment_notification.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/fragment_profile.xml" value="0.176" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/list_item_category.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/list_product_activity.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/login_activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/main_update.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/admin/Documents/Eproject-App/app/src/main/res/layout/person.xml" value="0.12360688956433637" />
       </map>
     </option>
   </component>

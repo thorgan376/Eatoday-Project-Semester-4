@@ -1,13 +1,12 @@
-
 package eatoday.com;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -15,77 +14,57 @@ import eatoday.com.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationView bottomNavigationView;
-    ActivityMainBinding binding;
-    public Intent intent;
+    private ActivityMainBinding binding;
+    private HomeFragment homeFragment = new HomeFragment();
+    private NotificationFragment notificationFragment = new NotificationFragment();
+    private MyListFragment myListFragment = new MyListFragment();
+    private ProfileFragment profileFragment = new ProfileFragment();
 
+    private FragmentManager fragmentManager;
+    private Fragment active = homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.home);
-        bottomNavigationView.setOnItemSelectedListener((@NonNull MenuItem item) -> {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-                switch(item.getItemId())
-                {
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(), MainUpdate.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.shop:
-                        startActivity(new Intent(getApplicationContext(), ShopActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.person:
-                        startActivity(new Intent(getApplicationContext(), PersonActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.home:
-                        return true;
-                }
-                return false;
-        });
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().add(R.id.frameLayout, profileFragment).hide(profileFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.frameLayout, notificationFragment).hide(notificationFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.frameLayout, myListFragment).hide(myListFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.frameLayout, homeFragment).commit();
+        binding.bottomNavigation.setOnNavigationItemSelectedListener (mOnNavigationItemSelectedListener);
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.home:
+                    fragmentManager.beginTransaction().hide(active).show(homeFragment).commit();
+                    active = homeFragment;
+                    return true;
+                case R.id.notification:
+                    fragmentManager.beginTransaction().hide(active).show(notificationFragment).commit();
+                    active = notificationFragment;
+                    return true;
+                case R.id.list:
+                    fragmentManager.beginTransaction().hide(active).show(myListFragment).commit();
+                    active = myListFragment;
+                    return true;
+                case R.id.profile:
+                    fragmentManager.beginTransaction().hide(active).show(profileFragment).commit();
+                    active = profileFragment;
+                    return true;
+            }
+            return false;
+        }
+    };
 }
-//        bottomNavigationView.setOnItemSelectedListener((@NonNull MenuItem item) -> {
-//            int xx = 11;
-//            return onOptionsItemSelected(item);
-//        });
-//    }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.bottom_nav_menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.home:
-//                intent = new Intent(MainActivity.this, MainActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.settings:
-//                intent = new Intent(MainActivity.this, MainUpdate.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.person:
-//                Intent intent = new Intent(MainActivity.this, MainUpdate.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.shop:
-//                intent = new Intent(MainActivity.this, MainUpdate.class);
-//                startActivity(intent);
-//                break;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//        return super.onOptionsItemSelected(item);
 
 
 
