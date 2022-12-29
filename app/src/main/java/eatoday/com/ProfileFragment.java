@@ -12,20 +12,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import javax.security.auth.callback.Callback;
+
 import eatoday.com.databinding.ActivityMainBinding;
 
 public class ProfileFragment extends Fragment {
     private FragmentManager fragmentManager;
     private ActivityMainBinding binding;
+    private Callback callback;
+
+    public interface Callback{
+        void onClickFood();
+    }
+    public void setCallback(Callback callback){
+        this.callback = callback;
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button button = (Button) view.findViewById(R.id.foods);
         button.setOnClickListener(v -> {
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_my, new MyPostFragment());
-            fragmentTransaction.commit();
+           if(callback != null){
+               callback.onClickFood();
+           }
         });
     }
 
