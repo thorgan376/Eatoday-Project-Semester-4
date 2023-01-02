@@ -37,12 +37,13 @@
         <entry key="..\:/Eproject/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Eproject/app/src/main/res/layout/activity_notification.xml" value="0.253125" />
         <entry key="..\:/Eproject/app/src/main/res/layout/detail_page.xml" value="0.16" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_account.xml" value="0.25416666666666665" />
         <entry key="..\:/Eproject/app/src/main/res/layout/fragment_detail__food.xml" value="0.25416666666666665" />
-        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Eproject/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Eproject/app/src/main/res/layout/fragment_loginaccount.xml" value="0.25416666666666665" />
         <entry key="..\:/Eproject/app/src/main/res/layout/fragment_my_list.xml" value="0.25416666666666665" />
-        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_my_post.xml" value="0.1" />
+        <entry key="..\:/Eproject/app/src/main/res/layout/fragment_my_post.xml" value="0.264" />
         <entry key="..\:/Eproject/app/src/main/res/layout/fragment_notification.xml" value="0.11302083333333333" />
         <entry key="..\:/Eproject/app/src/main/res/layout/fragment_profile.xml" value="0.16" />
         <entry key="..\:/Eproject/app/src/main/res/layout/fragment_profiles.xml" value="0.24010416666666667" />

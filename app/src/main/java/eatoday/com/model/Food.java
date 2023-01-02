@@ -1,6 +1,7 @@
 package eatoday.com.model;
 
 public class Food {
+    private int Foodid;
     private String nameFood;
     private String linKVideo;
     private String describle;
@@ -10,7 +11,8 @@ public class Food {
 
     }
 
-    public Food(String nameFood, String linKVideo, String describle, String imageFood) {
+    public Food(int Foodid,String nameFood, String linKVideo, String describle, String imageFood) {
+        this.Foodid = Foodid;
         this.nameFood = nameFood;
         this.linKVideo = linKVideo;
         this.describle = describle;
@@ -48,6 +50,13 @@ public class Food {
 
     public void setImageFood(String imageFood) {
         this.imageFood = imageFood;
+    }
+    public int getFoodid() {
+        return Foodid;
+    }
+
+    public void setFoodid(int foodid) {
+        Foodid = foodid;
     }
 
 

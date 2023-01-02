@@ -23,6 +23,8 @@ public class ProfileFragment extends Fragment {
 
     public interface Callback{
         void onClickFood();
+
+
     }
     public void setCallback(Callback callback){
         this.callback = callback;
@@ -31,12 +33,18 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button button = (Button) view.findViewById(R.id.foods);
-        button.setOnClickListener(v -> {
+        Button button_foods = (Button) view.findViewById(R.id.btn_foods);
+        button_foods.setOnClickListener(v -> {
            if(callback != null){
                callback.onClickFood();
            }
         });
+//        Button button_account = (Button) view.findViewById(R.id.btn_changeuser);
+//        button_foods.setOnClickListener(v -> {
+//            if(callback != null){
+//                callback.onClickUser();
+//            }
+//        });
     }
 
     @Override
