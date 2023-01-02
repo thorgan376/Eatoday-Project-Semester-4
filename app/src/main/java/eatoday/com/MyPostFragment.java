@@ -75,7 +75,7 @@ public class MyPostFragment extends Fragment {
             }
             return false;
         });
-        edt_Ingredient.setOnEditorActionListener(new DoneOnEditorActionListener());
+//        edt_Ingredient.setOnEditorActionListener(new DoneOnEditorActionListener());
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,27 +124,27 @@ public class MyPostFragment extends Fragment {
         }
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(
-                        Activity.INPUT_METHOD_SERVICE);
-        if (inputMethodManager.isAcceptingText()) {
-            inputMethodManager.hideSoftInputFromWindow(
-                    activity.getCurrentFocus().getWindowToken(),
-                    0
-            );
-        }
+//    public static void hideSoftKeyboard(Activity activity) {
+//        InputMethodManager inputMethodManager =
+//                (InputMethodManager) activity.getSystemService(
+//                        Activity.INPUT_METHOD_SERVICE);
+//        if (inputMethodManager.isAcceptingText()) {
+//            inputMethodManager.hideSoftInputFromWindow(
+//                    activity.getCurrentFocus().getWindowToken(),
+//                    0
+//            );
+//        }
+//
+//    }
 
-    }
-
-    private class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                return true;
-            }
-            return false;
-        }
-    }
+//    private class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
+//        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//            if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+//                return true;
+//            }
+//            return false;
+//        }
+//    }
 }
