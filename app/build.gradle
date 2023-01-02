@@ -53,24 +53,29 @@ dependencies {
     // TODO: Add the dependencies for Firebase products you want to use
 
     // When using the BoM, don't specify versions in Firebase dependencies
-    //Google Analytics
+    // Add Google Analytics
     implementation 'com.google.firebase:firebase-analytics'
-    // Add the dependencies for any other desired Firebase products
 
-    // Add the dependency for the Firebase Authentication library
+    // Add the dependency for the Firebase Authentication library ( Java )
     implementation 'com.google.firebase:firebase-auth'
 
     //Firebase UI
-    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+    // Used in FirebaseUIActivity.
+    // implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
 
-    //Add the dependency for the Google Play services library and specify its version
+    //Google Identity Services SDK (only required for Auth with Google)
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
 
 
-    // Required only if Facebook login support is required
+    // Facebook Android SDK (only required for Facebook Login)
+    // Used in FacebookLoginActivity.
     implementation 'com.facebook.android:facebook-login:latest.release'
     //implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
+
+    //Display webpages in the user's default browser.
+    implementation 'androidx.browser:browser:1.4.0'
+
 
 
 }
