@@ -69,13 +69,16 @@ public class EmailPasswordFragment extends Fragment {
                             Toast.makeText(getContext(), "Authentication failed",
                                     Toast.LENGTH_SHORT).show();
                         }
-
-                        if (!task.isSuccessful()) {
-                            Log.d(TAG, "Authentication failed");
-                        }
-
                     }
                 });
+    }
+
+    private void signOut() {
+        emailPasswordAuth.signOut();
+    }
+
+    private void sendEmailVerification() {
+
     }
 
     private void reload() {
@@ -93,6 +96,10 @@ public class EmailPasswordFragment extends Fragment {
                             Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        }); //reload user information - Testing only
+    }
+
+    private void updateUI(FirebaseUser user) {
+        //updateUI when user sign in or create new account successfully
     }
 }
