@@ -32,16 +32,17 @@
                 android:orientation="vertical"
                 android:layout_marginBottom="5dp"
                 >
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageFood"
-                    android:layout_width="100dp"
+                    android:layout_width="89dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
-                    android:elevation="5dp"
                     android:layout_marginBottom="5dp"
+                    android:elevation="5dp"
                     android:src="@drawable/ic_food_placeholder"
                     app:civ_border_color="@android:color/white"
-                    app:civ_border_width="2dp"/>
+                    app:civ_border_width="2dp" />
                 <!--                <ImageView-->
 <!--                    android:id="@+id/imageFoods"-->
 <!--                    android:layout_width="100dp"-->

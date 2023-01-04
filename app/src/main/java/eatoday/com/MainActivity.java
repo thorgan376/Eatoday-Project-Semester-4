@@ -1,5 +1,6 @@
 package eatoday.com;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -90,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             };
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //call super
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
 }
 
