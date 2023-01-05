@@ -37,7 +37,6 @@ allprojects {
 //        mavenCentral()  // Maven Central repository
 
     }
-
 }
 
 task clean(type: Delete) {
