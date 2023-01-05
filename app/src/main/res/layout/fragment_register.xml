@@ -19,7 +19,7 @@
             app:elevation="0dp">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_detail"
+                android:id="@+id/toolbar_detail_signUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
@@ -37,7 +37,7 @@
                         android:drawableRight="@drawable/ic_person"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/font_outfit_bold"
-                        android:text="Login Account"
+                        android:text="Sign Up"
                         android:textColor="@color/black"
                         android:textSize="24dp" />
                 </LinearLayout>
@@ -73,7 +73,7 @@
                     android:layout_marginEnd="36dp"
                     android:background="@drawable/custom_input"
                     android:hint="Enter email address"
-                    android:id="@+id/edt_email_info"/>
+                    android:id="@+id/edt_email_info_signUp"/>
 
                 <EditText
                     android:layout_width="328dp"
@@ -83,11 +83,11 @@
                     android:layout_marginEnd="36dp"
                     android:background="@drawable/custom_input"
                     android:hint="Enter password"
-                    android:id="@+id/edt_password_info"/>
+                    android:id="@+id/edt_password_info_signUp"/>
             </TableLayout>
 
             <TextView
-                android:id="@+id/tv_forgotPassword"
+                android:id="@+id/tv_forgotPassword_signUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -107,10 +107,10 @@
                 android:layout_marginEnd="36dp"
                 android:background="@drawable/bg_button"
                 android:fontFamily="@font/font_outfit_bold"
-                android:text="Log In"
+                android:text="Sign up"
                 android:textFontWeight="400"
                 android:textSize="18dp"
-                android:id="@+id/btn_signIn"/>
+                android:id="@+id/btn_signUp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -119,7 +119,7 @@
                 android:layout_marginStart="108dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="104dp"
-                android:text="Or log in with"
+                android:text="Or sign up with"
                 android:textAppearance="@style/by_clicking"
                 android:textFontWeight="400" />
 
@@ -131,7 +131,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/img_btn_facebook"
+                    android:id="@+id/img_btn_facebook_signUp"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -140,14 +140,14 @@
                     android:src="@drawable/ic_facebook"/>
 
                 <ImageButton
-                    android:id="@+id/img_btn_google"
+                    android:id="@+id/img_btn_google_signUp"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginStart="20dp"
                     android:background="@drawable/bg_image_button"
-                    android:src="@drawable/ic_google" />
+                    android:src="@drawable/ic_google"/>
             </LinearLayout>
 
             <LinearLayout
@@ -161,17 +161,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Not register"
+                    android:text="Already have an account ?"
                     android:textSize="17dp"
                     android:layout_marginEnd="10dp"
                     />
 
                 <Button
-                    android:id="@+id/btn_createAccount"
+                    android:id="@+id/btn_login_alreadyHaveAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:text="Sign up" />
+                    android:text="Log in" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -2,6 +2,9 @@ package eatoday.com;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,16 +16,45 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import eatoday.com.databinding.FragmentLoginBinding;
 
 public class EmailPasswordFragment extends Fragment {
     private static final String TAG = "EmailPassword";
     //declare authentication
     private FirebaseAuth emailPasswordAuth;
 
+    private FragmentLoginBinding loginBinding;
+
+    @Nullable
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // start initialize_auth
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        loginBinding = FragmentLoginBinding.inflate(inflater, container, false);
+        return loginBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //Buttons
+        loginBinding.btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = loginBinding.edtEmailInfo.getText().toString();
+                String password = loginBinding.edtPasswordInfo.getText().toString();
+                //signIn method
+            }
+        });
+
+        loginBinding.btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = loginBinding.edtEmailInfo.getText().toString();
+                String password = loginBinding.edtPasswordInfo.getText().toString();
+                //createAccount method
+            }
+        });
+
         // Initialize Firebase Auth
         emailPasswordAuth = FirebaseAuth.getInstance();
     }
