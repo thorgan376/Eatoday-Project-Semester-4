@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ProfileFragment profileFragment = new ProfileFragment();
     private MyPostFragment myPostFragment = new MyPostFragment();
     private AccountFragment accountFragment = new AccountFragment();
+    private LoginFragment loginFragment = new LoginFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
     public void openMyPostFragment() {
@@ -86,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(myListFragment);
                         break;
                     case R.id.profile:
-                        replaceFragment(profileFragment);
+                        //replaceFragment(profileFragment);
+                        replaceFragment(loginFragment);
                         break;
                 }
                 return true;
