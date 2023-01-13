@@ -1,4 +1,4 @@
-package eatoday.com;
+package eatoday.com.authentication;
 
 import android.os.Bundle;
 
@@ -28,8 +28,6 @@ import eatoday.com.databinding.FragmentLoginBinding;
 public class LoginFragment extends Fragment {
 
     private static final String EMAIL_PASSWORD = "EmailPassword";
-    private static final String GOOGLE = "GoogleSignIn";
-    private static final String FACEBOOK = "FacebookSignIn";
     //declare authentication
     private FirebaseAuth mAuth;
 
@@ -157,5 +155,11 @@ public class LoginFragment extends Fragment {
         } else {
 
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+//        loginBinding = null;
     }
 }
