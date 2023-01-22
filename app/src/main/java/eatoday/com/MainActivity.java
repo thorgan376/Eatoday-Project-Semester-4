@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import eatoday.com.authentication.LoginFragment;
 import eatoday.com.databinding.ActivityMainBinding;
+import eatoday.com.databinding.FragmentProfilesBinding;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,26 +34,13 @@ public class MainActivity extends AppCompatActivity {
     private LoginFragment loginFragment = new LoginFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
+
     private FirebaseAuth mAuth;
 
+    private static final String RELOAD = "Reload info";
+
     private static final String ANONYMOUS = "Anonymous sign in";
-    public void openMyPostFragment() {
-        // use replace
-        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,myPostFragment).addToBackStack(null).commit();
-//        replaceFragment(myPostFragment);
-//        use add
-//        fragmentManager.beginTransaction().add(R.id.frameLayout, myPostFragment).hide(notificationFragment).commit();
-//        fragmentManager.beginTransaction().hide(active).show(myPostFragment).commit();
-    }
-    public void openAccountFragment() {
-        // use replace
-        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction().setCustomAnimations(
-                R.anim.fade_out,  // exit
-                R.anim.fade_in   // popExit
-        );
-        fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
-    }
+
     public void replaceFragment (Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction() .setCustomAnimations(
                 R.anim.slide_in,  // enter
@@ -63,35 +51,32 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction.replace(R.id.frameLayout, fragment).commit();
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-
-
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(homeFragment);
-        binding.bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        profileFragment.setCallback(new ProfileFragment.Callback() {
-            @Override
-            public void onClickFood() {
-                openMyPostFragment();
-            }
-        });
+        binding.bottomNavigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        profileFragment.setCallback(() -> openMyPostFragment());
         mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            reload();
+//        }
+//        updateUI(currentUser);
     }
 
-    private void signInAnonymously() {
+    /*private void signInAnonymously() {
         mAuth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -109,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
                 switch (item.getItemId()) {
                     case R.id.home:
@@ -124,8 +109,15 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(myListFragment);
                         break;
                     case R.id.profile:
-//                        replaceFragment(profileFragment);
-                        replaceFragment(loginFragment);
+                        FirebaseUser currentUser = mAuth.getCurrentUser();
+                        if (currentUser == null) {
+                            replaceFragment(loginFragment);
+                        } else {
+                            reload();
+                            replaceFragment(profileFragment);
+                        }
+
+//                        mAuth.signOut();
                         break;
                 }
                 return true;
@@ -136,6 +128,47 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public void openMyPostFragment() {
+        // use replace
+        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
+        fragmentTransaction5.replace(R.id.frameLayout,myPostFragment).addToBackStack(null).commit();
+//        replaceFragment(myPostFragment);
+//        use add
+//        fragmentManager.beginTransaction().add(R.id.frameLayout, myPostFragment).hide(notificationFragment).commit();
+//        fragmentManager.beginTransaction().hide(active).show(myPostFragment).commit();
+    }
+
+    public void openAccountFragment() {
+        // use replace
+        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction().setCustomAnimations(
+                R.anim.fade_out,  // exit
+                R.anim.fade_in   // popExit
+        );
+        fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
+    }
+
+    public void signOut() {
+        mAuth.signOut();
+    }
+
+    private void reload() {
+        mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(),
+                            "Reload user successful",
+                            Toast.LENGTH_SHORT).show();
+                    Log.e(RELOAD, "Success");
+                } else {
+                    Log.e(RELOAD,"Error 404",task.getException());
+                    Toast.makeText(getApplicationContext(),
+                            "Failed to reload user",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        }); //reload user information - Testing only
+    }
 }
 
 
