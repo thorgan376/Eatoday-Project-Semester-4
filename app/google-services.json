@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "719128719058",
+    "firebase_url": "https://eatoday-android-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "eatoday-android",
+    "storage_bucket": "eatoday-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719128719058:android:6063bbbcd15d6e2485070b",
+        "android_client_info": {
+          "package_name": "eatoday.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719128719058-v65q521jb19g5efmv0kokj8uappc0um6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eatoday.com",
+            "certificate_hash": "e48b00df2fe0edff255a24f77c2fa87406cf2bc9"
+          }
+        },
+        {
+          "client_id": "719128719058-fdrladt8h8qsq8r6l8dtkr2pfllhprj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSOHRttZm7q6fUttcSkebjtGN7IcqkZOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719128719058-fdrladt8h8qsq8r6l8dtkr2pfllhprj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

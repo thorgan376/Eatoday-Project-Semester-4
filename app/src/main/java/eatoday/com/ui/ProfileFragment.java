@@ -1,4 +1,4 @@
-package eatoday.com;
+package eatoday.com.ui;
 
 import android.os.Bundle;
 
@@ -14,16 +14,17 @@ import android.widget.Toast;
 
 import javax.security.auth.callback.Callback;
 
+import eatoday.com.R;
 import eatoday.com.databinding.ActivityMainBinding;
 
 public class ProfileFragment extends Fragment {
     private FragmentManager fragmentManager;
-    private ActivityMainBinding binding;
+//    private ActivityMainBinding binding;
     private Callback callback;
 
     public interface Callback{
         void onClickFood();
-
+        void onClickUser();
 
     }
     public void setCallback(Callback callback){
@@ -39,12 +40,12 @@ public class ProfileFragment extends Fragment {
                callback.onClickFood();
            }
         });
-//        Button button_account = (Button) view.findViewById(R.id.btn_changeuser);
-//        button_foods.setOnClickListener(v -> {
-//            if(callback != null){
-//                callback.onClickUser();
-//            }
-//        });
+        Button button_account = (Button) view.findViewById(R.id.btn_changeuser);
+        button_account.setOnClickListener(v -> {
+            if(callback != null){
+                callback.onClickUser();
+            }
+        });
     }
 
     @Override

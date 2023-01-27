@@ -6,6 +6,8 @@
     android:layout_height="match_parent">
 
     <FrameLayout
+        android:clickable="true"
+        android:focusableInTouchMode="true"
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"

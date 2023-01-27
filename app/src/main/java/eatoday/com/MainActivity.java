@@ -1,12 +1,12 @@
 package eatoday.com;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,6 +15,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import eatoday.com.databinding.ActivityMainBinding;
+import eatoday.com.ui.AccountFragment;
+import eatoday.com.ui.HomeFragment;
+import eatoday.com.ui.MyListFragment;
+import eatoday.com.ui.MyPostFragment;
+import eatoday.com.ui.NotificationFragment;
+import eatoday.com.ui.ProfileFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +33,25 @@ public class MainActivity extends AppCompatActivity {
     private AccountFragment accountFragment = new AccountFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //getting Root View that gets focus
+        View rootView =((ViewGroup)findViewById(android.R.id.content)).
+                getChildAt(0);
+        rootView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideKeyboard(MainActivity.this);
+                }
+            }
+        });
+    }
+    public static void hideKeyboard(Activity context) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow( context.getCurrentFocus().getWindowToken(), 0);
+    }
     public void openMyPostFragment() {
         // use replace
         FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
@@ -38,10 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openAccountFragment() {
         // use replace
-        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction().setCustomAnimations(
-                R.anim.fade_out,  // exit
-                R.anim.fade_in   // popExit
-        );
+        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
         fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
     }
     public void replaceFragment (Fragment fragment) {
@@ -70,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClickFood() {
                 openMyPostFragment();
             }
+
+            @Override
+            public void onClickUser() {
+                openAccountFragment();
+            }
+
         });
     }
 
