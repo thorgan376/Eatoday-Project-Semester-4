@@ -110,14 +110,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.profile:
                         FirebaseUser currentUser = mAuth.getCurrentUser();
+                        reload();
                         if (currentUser == null) {
                             replaceFragment(loginFragment);
                         } else {
-                            reload();
                             replaceFragment(profileFragment);
                         }
-
-//                        mAuth.signOut();
                         break;
                 }
                 return true;
@@ -147,10 +145,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
     }
 
-    public void signOut() {
-        mAuth.signOut();
-    }
-
     private void reload() {
         mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -169,6 +163,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }); //reload user information - Testing only
     }
+//    private void UpdateUI(FirebaseUser user) {
+//        //user log in
+//        if (user != null) {
+//        }
+//        //user has log out
+//        else {
+//        }
+//    }
 }
 
 
