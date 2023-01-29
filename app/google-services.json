@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "719128719058",
+    "firebase_url": "https://eatoday-android-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "eatoday-android",
     "storage_bucket": "eatoday-android.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "719128719058-v65q521jb19g5efmv0kokj8uappc0um6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eatoday.com",
+            "certificate_hash": "e48b00df2fe0edff255a24f77c2fa87406cf2bc9"
+          }
+        },
         {
           "client_id": "719128719058-fdrladt8h8qsq8r6l8dtkr2pfllhprj5.apps.googleusercontent.com",
           "client_type": 3

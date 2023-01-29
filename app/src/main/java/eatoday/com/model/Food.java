@@ -1,25 +1,28 @@
 package eatoday.com.model;
 
+import android.net.Uri;
+
 public class Food {
-    private int Foodid;
+    public static int count = 0;
+    private int FoodId;
     private String nameFood;
     private String linKVideo;
     private String describle;
     private String imageFood;
+    private String ingredient;
 
     public Food() {
-
+        FoodId +=count;
     }
 
-    public Food(int Foodid,String nameFood, String linKVideo, String describle, String imageFood) {
-        this.Foodid = Foodid;
+    public Food(int FoodId,String nameFood,String ingredient, String linKVideo, String describle, String imageFood) {
+        this.FoodId = FoodId;
         this.nameFood = nameFood;
         this.linKVideo = linKVideo;
         this.describle = describle;
+        this.ingredient = ingredient;
         this.imageFood = imageFood;
     }
-
-
     public String getNameFood() {
         return nameFood;
     }
@@ -51,12 +54,20 @@ public class Food {
     public void setImageFood(String imageFood) {
         this.imageFood = imageFood;
     }
-    public int getFoodid() {
-        return Foodid;
+    public int getFoodId() {
+        return FoodId;
     }
 
-    public void setFoodid(int foodid) {
-        Foodid = foodid;
+    public void setFoodId(int foodId) {
+        FoodId = foodId;
+    }
+
+    public String getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
     }
 
 

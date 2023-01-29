@@ -1,10 +1,12 @@
-package eatoday.com;
+package eatoday.com.authentication;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import eatoday.com.ui.HomeFragment;
+import eatoday.com.ui.ProfileFragment;
+import eatoday.com.R;
+import eatoday.com.databinding.FragmentHomeBinding;
 import eatoday.com.databinding.FragmentLoginBinding;
 
 /**
@@ -27,13 +33,30 @@ import eatoday.com.databinding.FragmentLoginBinding;
  */
 public class LoginFragment extends Fragment {
 
-    private static final String EMAIL_PASSWORD = "EmailPassword";
-    private static final String GOOGLE = "GoogleSignIn";
-    private static final String FACEBOOK = "FacebookSignIn";
+    private static final String SIGN_IN_METHOD = "SignInMethod";
     //declare authentication
     private FirebaseAuth mAuth;
+    private FragmentManager fragmentManager;
+    private HomeFragment homeFragment = new HomeFragment();
 
     private FragmentLoginBinding loginBinding;
+
+    public void replaceFragment (Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+
+                R.anim.slide_in,  // enter
+                R.anim.fade_out,  // exit
+                R.anim.fade_in,   // popEnter
+                R.anim.slide_out  // popExit
+        );
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
 
     @Nullable
     @Override
@@ -50,9 +73,14 @@ public class LoginFragment extends Fragment {
         loginBinding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //declare
+                Fragment fragment = new ProfileFragment();
                 String email = loginBinding.edtEmailInfo.getText().toString();
                 String password = loginBinding.edtPasswordInfo.getText().toString();
+
                 signIn(email, password);
+                replaceFragment(fragment);
+
             }
         });
 
@@ -93,11 +121,11 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(EMAIL_PASSWORD, "createUserWithE&P:success");
+                            Log.d(SIGN_IN_METHOD, "createUserWithE&P:success");
 //                            FirebaseUser user = emailPasswordAuth.getCurrentUser();
 
                         } else {
-                            Log.d(EMAIL_PASSWORD, "createUserWithE&P:failure", task.getException());
+                            Log.d(SIGN_IN_METHOD, "createUserWithE&P:failure", task.getException());
                             Toast.makeText(getContext(),
                                     "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -112,12 +140,12 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(EMAIL_PASSWORD, "Authenticate with email and password successful");
+                            Log.d(SIGN_IN_METHOD, "Authenticate with email and password successful");
                             Toast.makeText(getContext(), "Authentication success",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             //Sign in fails, display a message to the user
-                            Log.w(EMAIL_PASSWORD, "signInWithE&P:failure",task.getException());
+                            Log.e(SIGN_IN_METHOD, "signInWithE&P:failure",task.getException());
                             Toast.makeText(getContext(), "Authentication failed",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -138,13 +166,14 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Log.v(SIGN_IN_METHOD,"Reload successfully",task.getException());
                     Toast.makeText(getContext(),
-                            "Reload successful",
+                            "Đăng nhập thành công",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.e(EMAIL_PASSWORD,"",task.getException());
+                    Log.e(SIGN_IN_METHOD,"Reload error",task.getException());
                     Toast.makeText(getContext(),
-                            "Failed to reload user",
+                            "Lỗi đăng nhập",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -157,5 +186,11 @@ public class LoginFragment extends Fragment {
         } else {
 
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+//        loginBinding = null;
     }
 }
