@@ -20,10 +20,7 @@ buildscript {
     }
 
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 609dd08f74012051509e783877a8eadfcd0790e2
 plugins {
     id 'com.android.application' version '7.4.0' apply false
     id 'com.android.library' version '7.4.0' apply false

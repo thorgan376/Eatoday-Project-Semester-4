@@ -6,6 +6,7 @@ import static android.content.ContentValues.TAG;
 
 
 import static eatoday.com.model.Food.count;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -13,8 +14,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +29,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,8 +39,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.IOException;
 import java.util.UUID;
+
 import eatoday.com.R;
 import eatoday.com.model.Food;
 
@@ -55,6 +64,7 @@ public class MyPostFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     FirebaseStorage storage;
     StorageReference storageReference;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,8 +132,8 @@ public class MyPostFragment extends Fragment {
         circleImageView.setOnClickListener(v12 -> SelectImage());
         return view;
     }
-    private void SelectImage()
-    {
+
+    private void SelectImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -134,16 +144,9 @@ public class MyPostFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode,
                                  int resultCode,
-                                 Intent data)
-    {
-        super.onActivityResult(requestCode,
-                resultCode,
-                data);
-        if (requestCode == PICK_IMAGE_REQUEST
-                && resultCode == RESULT_OK
-                && data != null
-                && data.getData() != null) {
-
+                                 Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore
@@ -151,9 +154,7 @@ public class MyPostFragment extends Fragment {
                         .Media
                         .getBitmap(getActivity().getContentResolver(), filePath);
                 circleImageView.setImageBitmap(bitmap);
-            }
-
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -190,7 +191,8 @@ public class MyPostFragment extends Fragment {
         String ingredient = edt_Ingredient.getText().toString();
         String describle = edt_Describle.getText().toString();
         String link = edt_link.getText().toString();
-        String image = circleImageView.toString();
+        String image = UUID.randomUUID().toString();
+        int idfood = count + 1;
         if (!namefoods.isEmpty() && !ingredient.isEmpty() && !describle.isEmpty() && !link.isEmpty()) {
             Log.v(TAG, "index=" + image);
             //Toast.makeText(getActivity(), image + " " + namefoods + " " + ingredient + " " + describle + " " + link, Toast.LENGTH_SHORT).show();
@@ -200,7 +202,8 @@ public class MyPostFragment extends Fragment {
             food.setIngredient(ingredient);
             food.setDescrible(describle);
             food.setLinKVideo(link);
-            addDatatoFirebase(namefoods, ingredient, describle, link);
+            food.setFoodId(idfood);
+            addDatatoFirebase(namefoods, ingredient, describle, link, idfood);
             uploadImage();
 //            foodList.add(food);
 //            mainAdapter.notifyDataSetChanged();
@@ -214,18 +217,21 @@ public class MyPostFragment extends Fragment {
         }
     }
 
-    private void addDatatoFirebase(String namefood, String Ingredient, String Describle, String link) {
+    private void addDatatoFirebase(String namefood, String Ingredient, String Describle, String link, int idFood) {
         food.setNameFood(namefood);
         food.setIngredient(Ingredient);
         food.setDescrible(Describle);
         food.setLinKVideo(link);
-        food.setFoodId(count + 1);
+        food.setFoodId(idFood);
+//        food.setImageFood(idFood);
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 databaseReference.setValue(food);
                 Toast.makeText(getActivity(), "data added", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getActivity(), "Fail to add data " + error, Toast.LENGTH_SHORT).show();
@@ -235,8 +241,7 @@ public class MyPostFragment extends Fragment {
 
     private void uploadImage() {
         if (filePath != null) {
-            ProgressDialog progressDialog
-                    = new ProgressDialog(getActivity());
+            ProgressDialog progressDialog = new ProgressDialog(getActivity());
             progressDialog.setTitle("Uploading...");
             StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
             ref.putFile(filePath)
@@ -254,7 +259,19 @@ public class MyPostFragment extends Fragment {
                                 double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
                                 progressDialog.setMessage("Uploaded " + (int) progress + "%");
                             });
+            setToFireStorage(filePath);
         }
+    }
+
+    private void setToFireStorage(Uri imageUri) {
+
+        final StorageReference ImageReference = storageReference.child("112233");
+        ImageReference.putFile(imageUri).addOnSuccessListener(taskSnapshot -> ImageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+            DatabaseReference db = databaseReference;
+            db.child("newImage").setValue(uri.toString());
+            // Toast.makeText(MainActivity.this, "Successfully added to real time", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show())).addOnFailureListener(e -> Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show());
+
     }
 
     public static void hideSoftKeyboard(Activity activity) {

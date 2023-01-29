@@ -1,12 +1,8 @@
 plugins {
     id 'com.android.application'
-<<<<<<< HEAD
     id 'com.google.gms.google-services'
-=======
     // Add the Google services Gradle plugin
-    id 'com.google.gms.google-services'
 
->>>>>>> 609dd08f74012051509e783877a8eadfcd0790e2
 }
 
 android {
@@ -37,7 +33,6 @@ android {
     }
     namespace 'eatoday.com'
 }
-
 dependencies {
     implementation 'com.karumi:dexter:6.2.3'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -50,26 +45,13 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
-<<<<<<< HEAD
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.firebaseui:firebase-ui-database:8.0.2'
-        // Import the BoM for the Firebase platform
-        implementation platform('com.google.firebase:firebase-bom:31.2.0')
-        // Add the dependency for the Cloud Storage library
-        // When using the BoM, you don't specify versions in Firebase library dependencies
-        implementation 'com.google.firebase:firebase-storage'
-=======
->>>>>>> 609dd08f74012051509e783877a8eadfcd0790e2
-
-    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'com.google.firebase:firebase-storage'
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
-
-    // TODO: Add the dependencies for Firebase products you want to use
-
-    // When using the BoM, don't specify versions in Firebase dependencies
-    // Add Google Analytics
     implementation 'com.google.firebase:firebase-analytics'
 
     // Add the dependency for the Firebase Authentication library ( Java )
@@ -92,9 +74,4 @@ dependencies {
     //Display webpages in the user's default browser.
     implementation 'androidx.browser:browser:1.4.0'
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 609dd08f74012051509e783877a8eadfcd0790e2
 }
