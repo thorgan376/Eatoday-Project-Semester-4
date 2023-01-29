@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,18 +71,12 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Buttons
-        loginBinding.btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //declare
-                Fragment fragment = new ProfileFragment();
-                String email = loginBinding.edtEmailInfo.getText().toString();
-                String password = loginBinding.edtPasswordInfo.getText().toString();
+        loginBinding.btnSignIn.setOnClickListener(v -> {
+            //declare
+            String email = loginBinding.edtEmailInfo.getText().toString();
+            String password = loginBinding.edtPasswordInfo.getText().toString();
 
-                signIn(email, password);
-                replaceFragment(fragment);
-
-            }
+            signIn(email, password);
         });
 
         loginBinding.btnNotRegisterSignUp.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +130,11 @@ public class LoginFragment extends Fragment {
     }
 
     private void signIn(String email, String password) {
+
+        if (!validateForm()) {
+            return;
+        }
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -143,9 +143,17 @@ public class LoginFragment extends Fragment {
                             Log.d(SIGN_IN_METHOD, "Authenticate with email and password successful");
                             Toast.makeText(getContext(), "Authentication success",
                                     Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
                         } else {
                             //Sign in fails, display a message to the user
                             Log.e(SIGN_IN_METHOD, "signInWithE&P:failure",task.getException());
+                            Toast.makeText(getContext(), "Authentication failed check email and password again",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        if (!task.isSuccessful()) {
                             Toast.makeText(getContext(), "Authentication failed",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -153,12 +161,30 @@ public class LoginFragment extends Fragment {
                 });
     }
 
-    private void signOut() {
-        mAuth.signOut();
-    }
-
     private void sendEmailVerification() {
 
+    }
+
+    private boolean validateForm() {
+        boolean valid = true;
+
+        String email = loginBinding.edtEmailInfo.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            loginBinding.edtEmailInfo.setError("Required");
+            valid = false;
+        } else {
+            loginBinding.edtEmailInfo.setError(null);
+        }
+
+        String password = loginBinding.edtPasswordInfo.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            loginBinding.edtPasswordInfo.setError("Required");
+            valid = false;
+        } else {
+            loginBinding.edtPasswordInfo.setError(null);
+        }
+
+        return valid;
     }
 
     private void reload() {
@@ -166,6 +192,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    updateUI(mAuth.getCurrentUser());
                     Log.v(SIGN_IN_METHOD,"Reload successfully",task.getException());
                     Toast.makeText(getContext(),
                             "Đăng nhập thành công",
@@ -182,7 +209,8 @@ public class LoginFragment extends Fragment {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-
+            ProfileFragment profileFragment = new ProfileFragment();
+            replaceFragment(profileFragment);
         } else {
 
         }

@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClickUser() {
                 openAccountFragment();
             }
-
         });
     }
 
@@ -189,7 +188,10 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Log.e(RELOAD, "Success");
                 } else {
-                    Log.e(RELOAD,"Failed to reload user",task.getException());
+                    Log.e(RELOAD,"Error 404",task.getException());
+                    Toast.makeText(getApplicationContext(),
+                            "Failed to reload user",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }); //reload user information - Testing only

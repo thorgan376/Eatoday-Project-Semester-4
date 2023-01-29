@@ -33,7 +33,6 @@ public class ProfileFragment extends Fragment {
     public interface Callback{
         void onClickFood();
         void onClickUser();
-
     }
     public void setCallback(Callback callback){
         this.callback = callback;
@@ -57,14 +56,16 @@ public class ProfileFragment extends Fragment {
                 callback.onClickUser();
             }
         });
+
         button_foods.setOnClickListener(v -> {
            if(callback != null){
                callback.onClickFood();
            }
         });
 
-        profilesBinding.btnLogout.setOnClickListener(v -> signOut());
-
+        profilesBinding.btnLogout.setOnClickListener(view1 -> {
+            signOut();
+        });
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -83,10 +84,10 @@ public class ProfileFragment extends Fragment {
 
     private void signOut() {
         mAuth.signOut();
-        UpdateUI(null);
+        updateUI(null);
     }
 
-    private void UpdateUI(FirebaseUser user) {
+    private void updateUI(FirebaseUser user) {
         if (user != null) {
 
         } else {
