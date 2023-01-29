@@ -1,4 +1,4 @@
-package eatoday.com;
+package eatoday.com.ui;
 
 import android.os.Bundle;
 
@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class HomeFragment extends Fragment {
+import eatoday.com.R;
+
+public class NotificationFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_notification, container, false);
     }
 }

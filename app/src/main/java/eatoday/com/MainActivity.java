@@ -1,9 +1,13 @@
 package eatoday.com;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +25,12 @@ import com.google.firebase.auth.FirebaseUser;
 import eatoday.com.authentication.LoginFragment;
 import eatoday.com.databinding.ActivityMainBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
+import eatoday.com.ui.AccountFragment;
+import eatoday.com.ui.HomeFragment;
+import eatoday.com.ui.MyListFragment;
+import eatoday.com.ui.MyPostFragment;
+import eatoday.com.ui.NotificationFragment;
+import eatoday.com.ui.ProfileFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,9 +47,43 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private static final String RELOAD = "Reload info";
+    private static final String RELOAD = "Reload mainActivity info";
 
     private static final String ANONYMOUS = "Anonymous sign in";
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //getting Root View that gets focus
+        View rootView =((ViewGroup)findViewById(android.R.id.content)).
+                getChildAt(0);
+        rootView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideKeyboard(MainActivity.this);
+                }
+            }
+        });
+    }
+    public static void hideKeyboard(Activity context) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow( context.getCurrentFocus().getWindowToken(), 0);
+    }
+    public void openMyPostFragment() {
+        // use replace
+        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
+        fragmentTransaction5.replace(R.id.frameLayout,myPostFragment).addToBackStack(null).commit();
+//        replaceFragment(myPostFragment);
+//        use add
+//        fragmentManager.beginTransaction().add(R.id.frameLayout, myPostFragment).hide(notificationFragment).commit();
+//        fragmentManager.beginTransaction().hide(active).show(myPostFragment).commit();
+    }
+    public void openAccountFragment() {
+        // use replace
+        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
+        fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
+    }
 
     public void replaceFragment (Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction() .setCustomAnimations(
@@ -62,8 +106,19 @@ public class MainActivity extends AppCompatActivity {
 
         binding.bottomNavigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        profileFragment.setCallback(() -> openMyPostFragment());
         mAuth = FirebaseAuth.getInstance();
+        profileFragment.setCallback(new ProfileFragment.Callback() {
+            @Override
+            public void onClickFood() {
+                openMyPostFragment();
+            }
+
+            @Override
+            public void onClickUser() {
+                openAccountFragment();
+            }
+
+        });
     }
 
     @Override
@@ -110,10 +165,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.profile:
                         FirebaseUser currentUser = mAuth.getCurrentUser();
-                        reload();
+
                         if (currentUser == null) {
                             replaceFragment(loginFragment);
                         } else {
+                            reload();
                             replaceFragment(profileFragment);
                         }
                         break;
@@ -126,39 +182,14 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void openMyPostFragment() {
-        // use replace
-        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,myPostFragment).addToBackStack(null).commit();
-//        replaceFragment(myPostFragment);
-//        use add
-//        fragmentManager.beginTransaction().add(R.id.frameLayout, myPostFragment).hide(notificationFragment).commit();
-//        fragmentManager.beginTransaction().hide(active).show(myPostFragment).commit();
-    }
-
-    public void openAccountFragment() {
-        // use replace
-        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction().setCustomAnimations(
-                R.anim.fade_out,  // exit
-                R.anim.fade_in   // popExit
-        );
-        fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
-    }
-
     private void reload() {
         mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(),
-                            "Reload user successful",
-                            Toast.LENGTH_SHORT).show();
                     Log.e(RELOAD, "Success");
                 } else {
-                    Log.e(RELOAD,"Error 404",task.getException());
-                    Toast.makeText(getApplicationContext(),
-                            "Failed to reload user",
-                            Toast.LENGTH_SHORT).show();
+                    Log.e(RELOAD,"Failed to reload user",task.getException());
                 }
             }
         }); //reload user information - Testing only

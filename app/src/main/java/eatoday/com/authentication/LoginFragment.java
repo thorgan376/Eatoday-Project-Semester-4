@@ -20,8 +20,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import eatoday.com.HomeFragment;
-import eatoday.com.ProfileFragment;
+import eatoday.com.ui.HomeFragment;
+import eatoday.com.ui.ProfileFragment;
 import eatoday.com.R;
 import eatoday.com.databinding.FragmentHomeBinding;
 import eatoday.com.databinding.FragmentLoginBinding;

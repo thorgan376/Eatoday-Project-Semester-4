@@ -1,4 +1,4 @@
-package eatoday.com;
+package eatoday.com.ui;
 
 import android.os.Bundle;
 
@@ -18,20 +18,21 @@ import com.google.firebase.auth.FirebaseUser;
 import javax.security.auth.callback.Callback;
 
 import eatoday.com.authentication.LoginFragment;
+import eatoday.com.R;
 import eatoday.com.databinding.ActivityMainBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
 
 public class ProfileFragment extends Fragment {
     private LoginFragment loginFragment = new LoginFragment();
     private FragmentManager fragmentManager;
-    private ActivityMainBinding binding;
+//    private ActivityMainBinding binding;
     private Callback callback;
     private FragmentProfilesBinding profilesBinding;
     private FirebaseAuth mAuth;
 
     public interface Callback{
         void onClickFood();
-//        void onClickLogOut();
+        void onClickUser();
 
     }
     public void setCallback(Callback callback){
@@ -50,17 +51,17 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button button_foods = (Button) view.findViewById(R.id.btn_foods);
+        Button button_account = (Button) view.findViewById(R.id.btn_changeuser);
+        button_account.setOnClickListener(v -> {
+            if(callback != null){
+                callback.onClickUser();
+            }
+        });
         button_foods.setOnClickListener(v -> {
            if(callback != null){
                callback.onClickFood();
            }
         });
-//        Button button_account = (Button) view.findViewById(R.id.btn_changeuser);
-//        button_foods.setOnClickListener(v -> {
-//            if(callback != null){
-//                callback.onClickUser();
-//            }
-//        });
 
         profilesBinding.btnLogout.setOnClickListener(v -> signOut());
 
