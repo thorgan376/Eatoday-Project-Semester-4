@@ -21,6 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import eatoday.com.databinding.FragmentProfilesBinding;
 import eatoday.com.ui.HomeFragment;
 import eatoday.com.ui.ProfileFragment;
 import eatoday.com.R;
@@ -38,7 +39,6 @@ public class LoginFragment extends Fragment {
     //declare authentication
     private FirebaseAuth mAuth;
     private FragmentManager fragmentManager;
-    private HomeFragment homeFragment = new HomeFragment();
 
     private FragmentLoginBinding loginBinding;
 
@@ -209,16 +209,16 @@ public class LoginFragment extends Fragment {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            ProfileFragment profileFragment = new ProfileFragment();
-            replaceFragment(profileFragment);
-        } else {
-
+            //signed in
+            loginBinding.loginPage.setVisibility(View.GONE);
+            ProfileFragment fragment = new ProfileFragment();
+            replaceFragment(fragment);
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        loginBinding = null;
+        loginBinding = null;
     }
 }
