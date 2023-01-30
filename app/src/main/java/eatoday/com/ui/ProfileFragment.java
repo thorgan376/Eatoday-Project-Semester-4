@@ -11,20 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import javax.security.auth.callback.Callback;
-
 import eatoday.com.authentication.LoginFragment;
 import eatoday.com.R;
-import eatoday.com.databinding.ActivityMainBinding;
-import eatoday.com.databinding.FragmentLoginBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
 
 public class ProfileFragment extends Fragment {
@@ -114,13 +108,25 @@ public class ProfileFragment extends Fragment {
                     Toast.makeText(getContext(),
                             "Reload thông tin user thành công",
                             Toast.LENGTH_SHORT).show();
+                    updateUI(mAuth.getCurrentUser());
                 } else {
                     Log.e(RELOAD_INFO,"Reload profile info error",task.getException());
                     Toast.makeText(getContext(),
                             "Lỗi reload thông tin user",
                             Toast.LENGTH_SHORT).show();
+                    updateUI(null);
                 }
             }
         }); //reload user information - Testing only
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            profilesBinding.txtName.setText(getString(R.string.user_email, user.getEmail()));
+        } else {
+            Toast.makeText(getContext(),
+                    "User không tồn tại",
+            Toast.LENGTH_SHORT).show();
+        }
     }
 }

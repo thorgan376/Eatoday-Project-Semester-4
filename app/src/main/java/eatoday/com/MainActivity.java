@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import eatoday.com.authentication.LoginFragment;
+import eatoday.com.authentication.SignUpFragment;
 import eatoday.com.databinding.ActivityMainBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
 import eatoday.com.ui.AccountFragment;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private MyPostFragment myPostFragment = new MyPostFragment();
     private AccountFragment accountFragment = new AccountFragment();
     private LoginFragment loginFragment = new LoginFragment();
+    private SignUpFragment signUpFragment = new SignUpFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
 
@@ -130,7 +132,29 @@ public class MainActivity extends AppCompatActivity {
             public void onLogOut() { logOut(); }
         });
 
-        loginFragment.setCallback(() -> afterSignIn());
+        loginFragment.setCallback(new LoginFragment.Callback() {
+            @Override
+            public void onSignIn() {
+                afterSignIn();
+            }
+
+            @Override
+            public void notRegisterSignUp() {
+                replaceFragment(signUpFragment);
+            }
+        });
+
+        signUpFragment.setCallback(new SignUpFragment.Callback() {
+            @Override
+            public void onSignUp() {
+                afterSignIn();
+            }
+
+            @Override
+            public void alreadyRegistered() {
+                replaceFragment(loginFragment);
+            }
+        });
     }
 
     @Override
@@ -176,14 +200,7 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(myListFragment);
                         break;
                     case R.id.profile:
-                        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-                        if (currentUser == null) {
-                            replaceFragment(loginFragment);
-                        } else {
-                            reload();
-                            replaceFragment(profileFragment);
-                        }
+                        updateUI(mAuth.getCurrentUser());
                         break;
                 }
                 return true;

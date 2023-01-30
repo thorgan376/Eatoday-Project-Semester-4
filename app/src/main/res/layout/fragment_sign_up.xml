@@ -13,6 +13,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 app:elevation="0dp">
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_detail"
@@ -77,14 +78,16 @@
                         android:layout_height="48dp"
                         android:layout_marginStart="36dp"
                         android:background="@drawable/custom_input"
-                        android:hint="First Name" />
+                        android:hint="First Name"
+                        android:id="@+id/edtFirstName"/>
 
                     <EditText
                         android:layout_width="134dp"
                         android:layout_height="48dp"
                         android:layout_marginStart="15dp"
                         android:background="@drawable/custom_input"
-                        android:hint="Last Name" />
+                        android:hint="Last Name"
+                        android:id="@+id/edtLastName"/>
                 </LinearLayout>
 
                 <TableLayout
@@ -100,7 +103,8 @@
                             android:layout_marginStart="36dp"
                             android:background="@drawable/custom_input"
                             android:hint="DD"
-                            android:inputType="date" />
+                            android:inputType="date"
+                            android:id="@+id/dayOfBirthDate"/>
 
                         <EditText
                             android:layout_width="90dp"
@@ -108,14 +112,16 @@
                             android:layout_marginStart="16dp"
                             android:background="@drawable/custom_input"
                             android:hint="MM"
-                            android:inputType="datetime" />
+                            android:inputType="datetime"
+                            android:id="@+id/monthOfBirthDate"/>
 
                         <EditText
                             android:layout_width="116dp"
                             android:layout_height="48dp"
                             android:layout_marginStart="16dp"
                             android:background="@drawable/custom_input"
-                            android:hint="YYYYY" />
+                            android:hint="YYYY"
+                            android:id="@+id/yearOfBirthDate"/>
                     </TableRow>
                 </TableLayout>
 
@@ -132,7 +138,7 @@
                         android:layout_marginEnd="36dp"
                         android:background="@drawable/custom_input"
                         android:hint="Enter email address"
-                        android:inputType="textPassword" />
+                        android:id="@+id/edtEmailAddress"/>
 
                     <EditText
                         android:layout_width="328dp"
@@ -141,7 +147,9 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="36dp"
                         android:background="@drawable/custom_input"
-                        android:hint="Enter password" />
+                        android:inputType="textPassword"
+                        android:hint="Enter password"
+                        android:id="@+id/edtPassword"/>
 
                     <EditText
                         android:layout_width="328dp"
@@ -151,7 +159,8 @@
                         android:layout_marginEnd="36dp"
                         android:background="@drawable/custom_input"
                         android:hint="Re-enter password"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:id="@+id/edtReEnterPassword"/>
 
                     <TextView
                         android:id="@+id/by_clicking"
@@ -174,17 +183,32 @@
                         android:fontFamily="@font/font_outfit_bold"
                         android:text="Sign Up"
                         android:textFontWeight="400"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:id="@+id/btnSignUp"/>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="108dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="104dp"
-                        android:text="Already have an account? Login"
-                        android:textAppearance="@style/by_clicking"
-                        android:textFontWeight="400" />
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="40dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Already register ?"
+                            android:textSize="17dp"
+                            android:layout_marginEnd="10dp"
+                            />
+
+                        <Button
+                            android:id="@+id/btn_Registered_logIn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:text="Log in" />
+                    </LinearLayout>
                 </TableLayout>
             </LinearLayout>
         </LinearLayout>
