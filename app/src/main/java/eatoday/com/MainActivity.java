@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import eatoday.com.authentication.LoginFragment;
+import eatoday.com.authentication.SignUpFragment;
 import eatoday.com.databinding.ActivityMainBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
 import eatoday.com.ui.AccountFragment;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private MyPostFragment myPostFragment = new MyPostFragment();
     private AccountFragment accountFragment = new AccountFragment();
     private LoginFragment loginFragment = new LoginFragment();
+    private SignUpFragment signUpFragment = new SignUpFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
 
@@ -85,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
     }
 
+    public void logOut() {
+        updateUI(null);
+    }
+
+    public void afterSignIn() {
+        updateUI(mAuth.getCurrentUser());
+    }
+
     public void replaceFragment (Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction() .setCustomAnimations(
                 R.anim.slide_in,  // enter
@@ -116,6 +126,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClickUser() {
                 openAccountFragment();
+            }
+
+            @Override
+            public void onLogOut() { logOut(); }
+        });
+
+        loginFragment.setCallback(new LoginFragment.Callback() {
+            @Override
+            public void onSignIn() {
+                afterSignIn();
+            }
+
+            @Override
+            public void notRegisterSignUp() {
+                replaceFragment(signUpFragment);
+            }
+        });
+
+        signUpFragment.setCallback(new SignUpFragment.Callback() {
+            @Override
+            public void onSignUp() {
+                afterSignIn();
+            }
+
+            @Override
+            public void alreadyRegistered() {
+                replaceFragment(loginFragment);
             }
         });
     }
@@ -163,14 +200,7 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(myListFragment);
                         break;
                     case R.id.profile:
-                        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-                        if (currentUser == null) {
-                            replaceFragment(loginFragment);
-                        } else {
-                            reload();
-                            replaceFragment(profileFragment);
-                        }
+                        updateUI(mAuth.getCurrentUser());
                         break;
                 }
                 return true;
@@ -196,14 +226,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }); //reload user information - Testing only
     }
-//    private void UpdateUI(FirebaseUser user) {
-//        //user log in
-//        if (user != null) {
-//        }
-//        //user has log out
-//        else {
-//        }
-//    }
+    private void updateUI(FirebaseUser user) {
+        //user log out
+        if (user != null) {
+            replaceFragment(profileFragment);
+        } else {
+            replaceFragment(loginFragment);
+        }
+    }
 }
 
 

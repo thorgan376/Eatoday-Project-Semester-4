@@ -2,65 +2,163 @@ package eatoday.com.authentication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+import eatoday.com.databinding.FragmentSignUpBinding;
 import eatoday.com.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SignUpFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SignUpFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static final String SIGN_UP_METHOD = "Sign up method";
     private static final String ARG_PARAM2 = "param2";
+    private FirebaseAuth mAuth;
+    private FragmentSignUpBinding signUpBinding;
+    private Callback callback;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SignUpFragment() {
-        // Required empty public constructor
+    public interface Callback {
+        void onSignUp();
+        void alreadyRegistered();
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SignUpFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SignUpFragment newInstance(String param1, String param2) {
-        SignUpFragment fragment = new SignUpFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.sign_up, container, false);
+        signUpBinding = FragmentSignUpBinding.inflate(inflater, container, false);
+        return signUpBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //Button
+
+        signUpBinding.btnSignUp.setOnClickListener(v -> {
+            String firstName = signUpBinding.edtFirstName.getText().toString();
+            String lastName = signUpBinding.edtLastName.getText().toString();
+            String dayOfBirthDate = signUpBinding.dayOfBirthDate.getText().toString();
+            String monthOfBirthDate = signUpBinding.monthOfBirthDate.getText().toString();
+            String yearOfBirthDate = signUpBinding.yearOfBirthDate.getText().toString();
+            String emailAddress = signUpBinding.edtEmailAddress.getText().toString();
+            String password = signUpBinding.edtPassword.getText().toString();
+            String reEnterPassword = signUpBinding.edtReEnterPassword.getText().toString();
+
+            createNewAccount(emailAddress, password);
+        });
+
+        signUpBinding.btnRegisteredLogIn.setOnClickListener(v -> {
+            if (callback != null) {
+                callback.alreadyRegistered();
+            }
+        });
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    private void createNewAccount(String email, String password) {
+        if (!validateForm()) {
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(SIGN_UP_METHOD, "createUserWithE&P:success");
+                        if (callback != null) {
+                            callback.onSignUp();
+                        }
+                    } else {
+                        Log.d(SIGN_UP_METHOD, "createUserWithE&P:failure", task.getException());
+                        Toast.makeText(getContext(),
+                                "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private boolean validateForm() {
+        boolean valid = true;
+
+        String firstName = signUpBinding.edtFirstName.getText().toString();
+            if( TextUtils.isEmpty(firstName)) {
+                signUpBinding.edtFirstName.setError("Required");
+                valid = false;
+            } else {
+                signUpBinding.edtFirstName.setError(null);
+            }
+        String lastName = signUpBinding.edtLastName.getText().toString();
+            if( TextUtils.isEmpty(lastName)) {
+                signUpBinding.edtLastName.setError("Required");
+                valid = false;
+            } else {
+                signUpBinding.edtLastName.setError(null);
+            }
+        String dayOfBirthDate = signUpBinding.dayOfBirthDate.getText().toString();
+            if( TextUtils.isEmpty(dayOfBirthDate)) {
+                signUpBinding.dayOfBirthDate.setError("Required");
+                valid = false;
+            } else {
+                signUpBinding.dayOfBirthDate.setError(null);
+            }
+        String monthOfBirthDate = signUpBinding.monthOfBirthDate.getText().toString();
+            if( TextUtils.isEmpty(monthOfBirthDate)) {
+                signUpBinding.monthOfBirthDate.setError("Required");
+                valid = false;
+            } else {
+                signUpBinding.monthOfBirthDate.setError(null);
+            }
+        String yearOfBirthDate = signUpBinding.yearOfBirthDate.getText().toString();
+            if( TextUtils.isEmpty(yearOfBirthDate)) {
+                signUpBinding.yearOfBirthDate.setError("Required");
+                valid = false;
+            } else {
+                signUpBinding.yearOfBirthDate.setError(null);
+            }
+        String emailAddress = signUpBinding.edtEmailAddress.getText().toString();
+            if( TextUtils.isEmpty(emailAddress)) {
+                signUpBinding.edtEmailAddress.setError("Required");
+                valid = false;
+            } else {
+                signUpBinding.edtEmailAddress.setError(null);
+            }
+        String password = signUpBinding.edtPassword.getText().toString();
+            if( TextUtils.isEmpty(password)) {
+                signUpBinding.edtPassword.setError("Required");
+                valid = false;
+            } else {
+                signUpBinding.edtPassword.setError(null);
+            }
+        String reEnterPassword = signUpBinding.edtReEnterPassword.getText().toString();
+            if( TextUtils.isEmpty(reEnterPassword)) {
+                signUpBinding.edtReEnterPassword.setError("Required");
+                valid = false;
+            } else {
+                signUpBinding.edtReEnterPassword.setError(null);
+            }
+        return valid;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        signUpBinding = null;
     }
 }
