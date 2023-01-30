@@ -39,6 +39,7 @@ public class ProfileFragment extends Fragment {
     public interface Callback{
         void onClickFood();
         void onClickUser();
+        void onLogOut();
     }
     public void setCallback(Callback callback){
         this.callback = callback;
@@ -55,27 +56,28 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button button_foods = (Button) view.findViewById(R.id.btn_foods);
-        Button button_account = (Button) view.findViewById(R.id.btn_changeuser);
-        button_account.setOnClickListener(v -> {
+        profilesBinding.btnChangeuser.setOnClickListener(v -> {
             if(callback != null){
                 callback.onClickUser();
             }
         });
 
-        button_foods.setOnClickListener(v -> {
+        profilesBinding.btnFoods.setOnClickListener(v -> {
            if(callback != null){
                callback.onClickFood();
            }
         });
 
-//        profilesBinding.btnFoods.setOnClickListener(v -> {
-//            openMyFoodPost();
-//        });
-
         profilesBinding.btnLogout.setOnClickListener(v -> {
-            signOut();
+            if(callback != null){
+                mAuth.signOut();
+                Toast.makeText(getContext(),
+                        "Đăng xuất",
+                        Toast.LENGTH_SHORT).show();
+                callback.onLogOut();
+            }
         });
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -102,21 +104,12 @@ public class ProfileFragment extends Fragment {
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
     }
 
-    private void signOut() {
-        mAuth.signOut();
-        updateUI(null);
-    }
-
-//    private void openMyFoodPost() {
-//        replaceFragment(myPostFragment);
-//    }
-
     private void reload() {
         mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    updateUI(mAuth.getCurrentUser());
+//                    updateUI(mAuth.getCurrentUser());
                     Log.v(RELOAD_INFO,"Reload profile info successfully",task.getException());
                     Toast.makeText(getContext(),
                             "Reload thông tin user thành công",
@@ -129,14 +122,5 @@ public class ProfileFragment extends Fragment {
                 }
             }
         }); //reload user information - Testing only
-    }
-
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            //signed in
-            profilesBinding.txtName.setText("An Firebase User Name :))");
-        } else {
-            replaceFragment(loginFragment);
-        }
     }
 }

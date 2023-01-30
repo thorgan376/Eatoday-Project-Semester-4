@@ -85,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
     }
 
+    public void logOut() {
+        updateUI(null);
+    }
+
+    public void afterSignIn() {
+        updateUI(mAuth.getCurrentUser());
+    }
+
     public void replaceFragment (Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction() .setCustomAnimations(
                 R.anim.slide_in,  // enter
@@ -117,7 +125,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClickUser() {
                 openAccountFragment();
             }
+
+            @Override
+            public void onLogOut() { logOut(); }
         });
+
+        loginFragment.setCallback(() -> afterSignIn());
     }
 
     @Override
@@ -196,14 +209,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }); //reload user information - Testing only
     }
-//    private void UpdateUI(FirebaseUser user) {
-//        //user log in
-//        if (user != null) {
-//        }
-//        //user has log out
-//        else {
-//        }
-//    }
+    private void updateUI(FirebaseUser user) {
+        //user log out
+        if (user != null) {
+            replaceFragment(profileFragment);
+        } else {
+            replaceFragment(loginFragment);
+        }
+    }
 }
 
 

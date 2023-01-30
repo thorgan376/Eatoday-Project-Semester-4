@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,26 +39,16 @@ public class LoginFragment extends Fragment {
     private static final String SIGN_IN_METHOD = "SignInMethod";
     //declare authentication
     private FirebaseAuth mAuth;
-    private FragmentManager fragmentManager;
-
+    private Callback callback;
     private FragmentLoginBinding loginBinding;
 
-    public void replaceFragment (Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(
+    public interface Callback{
+        void onSignIn();
+    };
 
-                R.anim.slide_in,  // enter
-                R.anim.fade_out,  // exit
-                R.anim.fade_in,   // popEnter
-                R.anim.slide_out  // popExit
-        );
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.addToBackStack(null).commit();
+    public void setCallback(Callback callback) {
+        this.callback = callback;
     }
-
 
     @Nullable
     @Override
@@ -75,7 +66,6 @@ public class LoginFragment extends Fragment {
             //declare
             String email = loginBinding.edtEmailInfo.getText().toString();
             String password = loginBinding.edtPasswordInfo.getText().toString();
-
             signIn(email, password);
         });
 
@@ -100,14 +90,29 @@ public class LoginFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            reload();
-        }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            reload();
+//        }
+//    }
+
+    public void replaceFragment (Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.anim.slide_in,  // enter
+                        R.anim.fade_out,  // exit
+                        R.anim.fade_in,   // popEnter
+                        R.anim.slide_out  // popExit
+                );
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.addToBackStack(null).commit();
     }
 
     private void createNewAccount(String email, String password) {
@@ -134,7 +139,6 @@ public class LoginFragment extends Fragment {
         if (!validateForm()) {
             return;
         }
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -143,14 +147,14 @@ public class LoginFragment extends Fragment {
                             Log.d(SIGN_IN_METHOD, "Authenticate with email and password successful");
                             Toast.makeText(getContext(), "Authentication success",
                                     Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            if (callback != null) {
+                                callback.onSignIn();
+                            }
                         } else {
                             //Sign in fails, display a message to the user
                             Log.e(SIGN_IN_METHOD, "signInWithE&P:failure",task.getException());
                             Toast.makeText(getContext(), "Authentication failed check email and password again",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
 
                         if (!task.isSuccessful()) {
@@ -187,34 +191,31 @@ public class LoginFragment extends Fragment {
         return valid;
     }
 
-    private void reload() {
-        mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    updateUI(mAuth.getCurrentUser());
-                    Log.v(SIGN_IN_METHOD,"Reload successfully",task.getException());
-                    Toast.makeText(getContext(),
-                            "Đăng nhập thành công",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.e(SIGN_IN_METHOD,"Reload error",task.getException());
-                    Toast.makeText(getContext(),
-                            "Lỗi đăng nhập",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        }); //reload user information - Testing only
-    }
-
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            //signed in
-            loginBinding.loginPage.setVisibility(View.GONE);
-            ProfileFragment fragment = new ProfileFragment();
-            replaceFragment(fragment);
-        }
-    }
+//    private void reload() {
+//        mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    updateUI(mAuth.getCurrentUser());
+//                    Log.v(SIGN_IN_METHOD,"Reload successfully",task.getException());
+//                    Toast.makeText(getContext(),
+//                            "Đăng nhập thành công",
+//                            Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Log.e(SIGN_IN_METHOD,"Reload error",task.getException());
+//                    Toast.makeText(getContext(),
+//                            "Lỗi đăng nhập",
+//                            Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }); //reload user information - Testing only
+//    }
+//
+//    private void updateUI(FirebaseUser user) {
+//        if (user != null) {
+//
+//        }
+//    }
 
     @Override
     public void onDestroyView() {
