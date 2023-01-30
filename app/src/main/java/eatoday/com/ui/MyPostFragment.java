@@ -1,6 +1,4 @@
 package eatoday.com.ui;
-
-
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 

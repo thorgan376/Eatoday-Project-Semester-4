@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:fitsSystemWindows="true">
+    android:background="@android:color/white">
+<!--    android:fitsSystemWindows="true"-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         >
         <com.google.android.material.appbar.AppBarLayout
@@ -71,7 +71,8 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="36dp"
                     android:background="@drawable/custom_input"
-                    android:hint="Enter email address" />
+                    android:hint="Enter email address"
+                    android:id="@+id/edt_email_info"/>
 
                 <EditText
                     android:layout_width="328dp"
@@ -79,12 +80,14 @@
                     android:layout_marginStart="36dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="36dp"
+                    android:inputType="textPassword"
                     android:background="@drawable/custom_input"
-                    android:hint="Enter password" />
+                    android:hint="Enter password"
+                    android:id="@+id/edt_password_info"/>
             </TableLayout>
 
             <TextView
-                android:id="@+id/by_clicking"
+                android:id="@+id/tv_forgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -93,7 +96,8 @@
                 android:layout_marginEnd="36dp"
                 android:text="Forgot password?"
                 android:textAppearance="@style/by_clicking"
-                android:textFontWeight="400" />
+                android:textFontWeight="400"
+                android:textSize="13sp"/>
 
             <Button
                 android:layout_width="328dp"
@@ -103,9 +107,10 @@
                 android:layout_marginEnd="36dp"
                 android:background="@drawable/bg_button"
                 android:fontFamily="@font/font_outfit_bold"
-                android:text="Sign Up"
+                android:text="Log In"
                 android:textFontWeight="400"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:id="@+id/btn_signIn"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -114,7 +119,7 @@
                 android:layout_marginStart="108dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="104dp"
-                android:text="Or sign up with"
+                android:text="Or log in with"
                 android:textAppearance="@style/by_clicking"
                 android:textFontWeight="400" />
 
@@ -126,16 +131,16 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/searchImageButton"
+                    android:id="@+id/img_btn_facebook"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/bg_image_button"
-                    android:src="@drawable/ic_facebook" />
+                    android:src="@drawable/ic_facebook"/>
 
                 <ImageButton
-                    android:id="@+id/google"
+                    android:id="@+id/img_btn_google"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -162,11 +167,11 @@
                     />
 
                 <Button
-                    android:id="@+id/btn_creatAccount"
+                    android:id="@+id/btn_notRegister_signUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:text="Create Account" />
+                    android:text="Sign up" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
