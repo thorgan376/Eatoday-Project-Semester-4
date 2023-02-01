@@ -63,14 +63,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="290dp"
             android:background="@drawable/bg_radius_bottom_corner"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
@@ -83,10 +83,35 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/font_outfit"
                 android:text="Your Name"
-                android:textAlignment="center"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textFontWeight="1000"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:paddingStart="20dp"/>
+            <TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/font_outfit"
+                android:text="Your Email"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textFontWeight="1000"
+                android:textSize="20dp"
+                android:paddingStart="20dp"/>
+            <TextView
+                android:id="@+id/txtBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/font_outfit"
+                android:text="Your BirthDate"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textFontWeight="1000"
+                android:textSize="20dp"
+                android:paddingStart="20dp"/>
         </LinearLayout>
 
         <LinearLayout

@@ -122,7 +122,7 @@ public class ProfileFragment extends Fragment {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            profilesBinding.txtName.setText(getString(R.string.user_email, user.getEmail()));
+            profilesBinding.txtEmail.setText(getString(R.string.user_email, user.getEmail()));
         } else {
             Toast.makeText(getContext(),
                     "User không tồn tại",
