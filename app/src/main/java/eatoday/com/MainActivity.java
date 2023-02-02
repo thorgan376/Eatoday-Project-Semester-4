@@ -27,6 +27,7 @@ import eatoday.com.authentication.SignUpFragment;
 import eatoday.com.databinding.ActivityMainBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
 import eatoday.com.ui.AccountFragment;
+import eatoday.com.ui.Detail_Food_Fragment;
 import eatoday.com.ui.HomeFragment;
 import eatoday.com.ui.MyListFragment;
 import eatoday.com.ui.MyPostFragment;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private HomeFragment homeFragment = new HomeFragment();
     private NotificationFragment notificationFragment = new NotificationFragment();
+    private Detail_Food_Fragment detail_food_fragment = new Detail_Food_Fragment();
     private MyListFragment myListFragment = new MyListFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
     private MyPostFragment myPostFragment = new MyPostFragment();
@@ -189,22 +191,22 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
-                switch (item.getItemId()) {
-                    case R.id.home:
-                        replaceFragment(homeFragment);
-                        break;
-                    case R.id.notification:
-                        replaceFragment(notificationFragment);
-                        break;
-                    case R.id.list:
-                        replaceFragment(myListFragment);
-                        break;
-                    case R.id.profile:
-                        updateUI(mAuth.getCurrentUser());
-                        break;
-                }
-                return true;
-            };
+        switch (item.getItemId()) {
+            case R.id.home:
+                replaceFragment(homeFragment);
+                break;
+            case R.id.notification:
+                replaceFragment(notificationFragment);
+                break;
+            case R.id.list:
+                replaceFragment(detail_food_fragment);
+                break;
+            case R.id.profile:
+                updateUI(mAuth.getCurrentUser());
+                break;
+        }
+        return true;
+    };
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //call super
@@ -235,6 +237,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
 
 

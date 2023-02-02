@@ -57,9 +57,9 @@ public class ProfileFragment extends Fragment {
         });
 
         profilesBinding.btnFoods.setOnClickListener(v -> {
-           if(callback != null){
-               callback.onClickFood();
-           }
+            if(callback != null){
+                callback.onClickFood();
+            }
         });
 
         profilesBinding.btnLogout.setOnClickListener(v -> {
@@ -105,9 +105,9 @@ public class ProfileFragment extends Fragment {
                 if (task.isSuccessful()) {
 //                    updateUI(mAuth.getCurrentUser());
                     Log.v(RELOAD_INFO,"Reload profile info successfully",task.getException());
-                    Toast.makeText(getContext(),
-                            "Reload thông tin user thành công",
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(),
+//                            "Reload thông tin user thành công",
+//                            Toast.LENGTH_SHORT).show();
                     updateUI(mAuth.getCurrentUser());
                 } else {
                     Log.e(RELOAD_INFO,"Reload profile info error",task.getException());
@@ -122,11 +122,11 @@ public class ProfileFragment extends Fragment {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            profilesBinding.txtEmail.setText(getString(R.string.user_email, user.getEmail()));
+            profilesBinding.txtName.setText(user.getEmail());
         } else {
             Toast.makeText(getContext(),
                     "User không tồn tại",
-            Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }
