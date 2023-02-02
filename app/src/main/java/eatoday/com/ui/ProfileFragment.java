@@ -3,6 +3,7 @@ package eatoday.com.ui;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,6 +18,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import eatoday.com.authentication.LoginFragment;
 import eatoday.com.R;
 import eatoday.com.databinding.FragmentProfilesBinding;
@@ -39,11 +43,20 @@ public class ProfileFragment extends Fragment {
         this.callback = callback;
     }
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         profilesBinding = FragmentProfilesBinding.inflate(inflater, container, false);
+        updateUI(mAuth.getCurrentUser());
         return profilesBinding.getRoot();
     }
 
@@ -71,10 +84,6 @@ public class ProfileFragment extends Fragment {
                 callback.onLogOut();
             }
         });
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-
     }
 
     @Override
@@ -105,9 +114,6 @@ public class ProfileFragment extends Fragment {
                 if (task.isSuccessful()) {
 //                    updateUI(mAuth.getCurrentUser());
                     Log.v(RELOAD_INFO,"Reload profile info successfully",task.getException());
-//                    Toast.makeText(getContext(),
-//                            "Reload thông tin user thành công",
-//                            Toast.LENGTH_SHORT).show();
                     updateUI(mAuth.getCurrentUser());
                 } else {
                     Log.e(RELOAD_INFO,"Reload profile info error",task.getException());
