@@ -157,35 +157,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
 //        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        if (currentUser != null) {
 //            reload();
 //        }
-//        updateUI(currentUser);
-    }
-
-    /*private void signInAnonymously() {
-        mAuth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(ANONYMOUS, "signInAnonymously:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-//                    updateUI(user);
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(ANONYMOUS, "signInAnonymously:failure", task.getException());
-                    Toast.makeText(getApplicationContext(), "Authentication failed.",
-                    Toast.LENGTH_SHORT).show();
-                    //updateUI(null);
-                }
-            }
-        });
-    }*/
+//    }
 
     private BottomNavigationView.OnItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
@@ -217,11 +196,13 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Log.e(RELOAD, "Success");
+                    updateUI(mAuth.getCurrentUser());
                 } else {
                     Log.e(RELOAD,"Error 404",task.getException());
                     Toast.makeText(getApplicationContext(),
                             "Failed to reload user",
                             Toast.LENGTH_SHORT).show();
+                    updateUI(null);
                 }
             }
         }); //reload user information - Testing only

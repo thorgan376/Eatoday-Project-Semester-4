@@ -3,6 +3,7 @@ package eatoday.com.ui;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,6 +18,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import eatoday.com.authentication.LoginFragment;
 import eatoday.com.R;
 import eatoday.com.databinding.FragmentProfilesBinding;
@@ -27,6 +31,7 @@ public class ProfileFragment extends Fragment {
     private Callback callback;
     private FragmentProfilesBinding profilesBinding;
     private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
 
     private static final String RELOAD_INFO = "Reload profiles info";
 
@@ -37,6 +42,13 @@ public class ProfileFragment extends Fragment {
     }
     public void setCallback(Callback callback){
         this.callback = callback;
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -74,7 +86,7 @@ public class ProfileFragment extends Fragment {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -105,9 +117,6 @@ public class ProfileFragment extends Fragment {
                 if (task.isSuccessful()) {
 //                    updateUI(mAuth.getCurrentUser());
                     Log.v(RELOAD_INFO,"Reload profile info successfully",task.getException());
-                    Toast.makeText(getContext(),
-                            "Reload thông tin user thành công",
-                            Toast.LENGTH_SHORT).show();
                     updateUI(mAuth.getCurrentUser());
                 } else {
                     Log.e(RELOAD_INFO,"Reload profile info error",task.getException());
@@ -122,7 +131,8 @@ public class ProfileFragment extends Fragment {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            profilesBinding.txtEmail.setText(getString(R.string.user_email, user.getEmail()));
+            profilesBinding.txtName.setText("Truong Duc Nguyen");
+            profilesBinding.imgAvatar.setImageResource(R.drawable.ic_google);
         } else {
             Toast.makeText(getContext(),
                     "User không tồn tại",

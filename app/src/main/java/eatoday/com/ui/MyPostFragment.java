@@ -42,17 +42,16 @@ public class MyPostFragment extends Fragment {
     private static final int SELECT_FILE = 1;
     private final int PICK_IMAGE_REQUEST = 22;
     private Uri filePath;
-    Button btnPost;
+    private Button btnPost;
     private static final int RESULT_LOAD_IMAGE = 1;
     int SELECT_PICTURE = 200;
-    ImageView circleImageView;
-    Food food;
+    private ImageView circleImageView;
+    private Food food;
     private EditText edt_namefood;
     private EditText edt_Ingredient;
     private EditText edt_Describle;
     private EditText edt_link;
     DatabaseReference databaseReference;
-    FirebaseDatabase firebaseDatabase;
     FirebaseStorage storage;
     StorageReference storageReference;
     @Override
@@ -92,10 +91,9 @@ public class MyPostFragment extends Fragment {
         circleImageView = view.findViewById(R.id.imageFood);
         edt_link = view.findViewById(R.id.txtLinkVideo);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        databaseReference = firebaseDatabase.getReference("Food");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Foods");
 
         food = new Food();
         edt_Describle.setOnTouchListener((v1, event) -> {
@@ -122,8 +120,8 @@ public class MyPostFragment extends Fragment {
         circleImageView.setOnClickListener(v12 -> SelectImage());
         return view;
     }
-    private void SelectImage()
-    {
+
+    private void SelectImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);

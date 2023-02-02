@@ -63,14 +63,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="290dp"
+            android:layout_height="200dp"
             android:background="@drawable/bg_radius_bottom_corner"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
@@ -82,36 +82,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/font_outfit"
-                android:text="Your Name"
-                android:textAlignment="viewStart"
+                android:text="Hoang Thai Son"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textFontWeight="1000"
-                android:textSize="20dp"
-                android:paddingStart="20dp"/>
-            <TextView
-                android:id="@+id/txtEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/font_outfit"
-                android:text="Your Email"
-                android:textAlignment="viewStart"
-                android:textColor="@color/black"
-                android:textFontWeight="1000"
-                android:textSize="20dp"
-                android:paddingStart="20dp"/>
-            <TextView
-                android:id="@+id/txtBirthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/font_outfit"
-                android:text="Your BirthDate"
-                android:textAlignment="viewStart"
-                android:textColor="@color/black"
-                android:textFontWeight="1000"
-                android:textSize="20dp"
-                android:paddingStart="20dp"/>
+                android:textSize="19dp"/>
         </LinearLayout>
 
         <LinearLayout
