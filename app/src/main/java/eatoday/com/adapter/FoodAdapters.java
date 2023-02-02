@@ -35,15 +35,11 @@ public class FoodAdapters extends FirebaseRecyclerAdapter<Food, FoodAdapters.foo
     @Override
     protected void onBindViewHolder(@NonNull foodViewholder holder, int position, @NonNull Food model) {
         holder.nameFood.setText(model.getNameFood());
-        Glide.with(holder.imgFood.getContext()).load(model.getImageFood()).into(holder.imgFood);
-
-//        holder.img1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                AppCompatActivity activity=(AppCompatActivity)view.getContext();
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.wrapper,new descfragment(model.getName(),model.getCourse(),model.getEmail(),model.getPurl())).addToBackStack(null).commit();
-//            }
-//        });
+        Glide.with(holder.imgFood.getContext())
+                .load(model.getImageFood())
+                .placeholder(R.drawable.ic_food_placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.imgFood);
     }
 
     @NonNull

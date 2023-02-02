@@ -21,7 +21,6 @@ import java.util.List;
 
 import eatoday.com.R;
 import eatoday.com.adapter.FoodAdapters;
-import eatoday.com.adapter.MainAdapter;
 import eatoday.com.model.Food;
 
 public class HomeFragment extends Fragment {
@@ -66,38 +65,22 @@ public class HomeFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_home, container, false);
 
         recview=(RecyclerView)view.findViewById(R.id.list_item);
-        recview.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recview.setLayoutManager(new LinearLayoutManager(getContext()));
+        recview.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         FirebaseRecyclerOptions<Food> options =
                 new FirebaseRecyclerOptions.Builder<Food>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference(), Food.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Foods"), Food.class)
                         .build();
 
         foodAdapters=new FoodAdapters(options);
         recview.setAdapter(foodAdapters);
-
+//        GridLayoutManager mLayoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false)
+//        list_item.setLayoutManager(mLayoutManager);
+//        list_item.setHasFixedSize(true);
+//        recview.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         return view;
-//        View view =  inflater.inflate(R.layout.fragment_home, container, false);
-//        mbase = FirebaseDatabase.getInstance().getReference();
-//
-//        recyclerView = view.findViewById(R.id.list_item);
-//
-//        // To display the Recycler view linearly
-//        recyclerView.setLayoutManager(
-//                new LinearLayoutManager(this));
-//
-//        FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>().setQuery(mbase, Food.class).build();
-//
-//        foodAdapters = new FoodAdapters(options);
-//        // Connecting Adapter class with the Recycler view*/
-//        recyclerView.setAdapter(foodAdapters);
-//        recyclerView = (RecyclerView) view.findViewById(R.id.list_item);
-//        recyclerView.setHasFixedSize(true);
-//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
-//        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.setAdapter(mainAdapter);
-//        list.addAll(getListMovie());
-//        showRecyclerList();
+
     }
 
     @Override

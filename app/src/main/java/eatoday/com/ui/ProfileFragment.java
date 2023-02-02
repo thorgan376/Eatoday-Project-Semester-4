@@ -69,9 +69,9 @@ public class ProfileFragment extends Fragment {
         });
 
         profilesBinding.btnFoods.setOnClickListener(v -> {
-           if(callback != null){
-               callback.onClickFood();
-           }
+            if(callback != null){
+                callback.onClickFood();
+            }
         });
 
         profilesBinding.btnLogout.setOnClickListener(v -> {
@@ -131,12 +131,11 @@ public class ProfileFragment extends Fragment {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            profilesBinding.txtName.setText("Truong Duc Nguyen");
-            profilesBinding.imgAvatar.setImageResource(R.drawable.ic_google);
+            profilesBinding.txtName.setText(user.getEmail());
         } else {
             Toast.makeText(getContext(),
                     "User không tồn tại",
-            Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }
