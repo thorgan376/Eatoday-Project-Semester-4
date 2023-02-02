@@ -1,17 +1,19 @@
 plugins {
     id 'com.android.application'
-    id 'com.google.gms.google-services'
     // Add the Google services Gradle plugin
+    id 'com.google.gms.google-services'
 }
 
 android {
     compileSdk 32
+
     defaultConfig {
         applicationId "eatoday.com"
         minSdk 28
         targetSdk 32
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -30,6 +32,7 @@ android {
     }
     namespace 'eatoday.com'
 }
+
 dependencies {
     implementation 'com.karumi:dexter:6.2.3'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -47,16 +50,16 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.firebaseui:firebase-ui-database:8.0.2'
+    // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    // Add the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-storage'
 
-        // Import the BoM for the Firebase platform
-        implementation platform('com.google.firebase:firebase-bom:31.2.0')
-        // Add the dependency for the Cloud Storage library
-        // When using the BoM, you don't specify versions in Firebase library dependencies
-        implementation 'com.google.firebase:firebase-storage'
+    // TODO: Add the dependencies for Firebase products you want to use
 
-    // Import the Firebase BoM
+    // When using the BoM, don't specify versions in Firebase dependencies
+    // Add Google Analytics
     implementation 'com.google.firebase:firebase-analytics'
 
     // Add the dependency for the Firebase Authentication library ( Java )
@@ -78,7 +81,6 @@ dependencies {
 
     //Display webpages in the user's default browser.
     implementation 'androidx.browser:browser:1.4.0'
-
 
     // Add the dependency for the Realtime Database library
     // When using the BoM, you don't specify versions in Firebase library dependencies
