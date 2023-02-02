@@ -4,19 +4,15 @@ public class User {
     private String firstName;
     private String lastName;
     private String userName;
-    private int idUser;
-    private String password;
     private String email;
 
     public User(){
 
     }
-    public User(String firstName, String lastName, String userName, int idUser, String password, String email) {
+    public User(String firstName, String lastName, String userName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
-        this.idUser = idUser;
-        this.password = password;
         this.email = email;
     }
 
@@ -42,22 +38,6 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {

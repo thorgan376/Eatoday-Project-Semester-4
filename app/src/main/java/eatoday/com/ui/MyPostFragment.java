@@ -232,7 +232,7 @@ public class MyPostFragment extends Fragment {
             StorageReference str = storage.getReference();
             str.child("profileImage").child(fileName).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
                 str.child("profileImage").child(fileName).getDownloadUrl().addOnSuccessListener(DownloadUri -> {
-                    FirebaseDatabase database = firebaseDatabase;
+//                    FirebaseDatabase database = firebaseDatabase;
                     DatabaseReference mref = databaseReference.child("foodImage");
                     mref.setValue(DownloadUri.toString());
                     Toast.makeText(getActivity(), "Data updated", LENGTH_SHORT).show();

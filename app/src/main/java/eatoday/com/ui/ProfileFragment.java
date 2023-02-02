@@ -31,7 +31,6 @@ public class ProfileFragment extends Fragment {
     private Callback callback;
     private FragmentProfilesBinding profilesBinding;
     private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
 
     private static final String RELOAD_INFO = "Reload profiles info";
 
@@ -48,7 +47,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -56,6 +56,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         profilesBinding = FragmentProfilesBinding.inflate(inflater, container, false);
+        updateUI(mAuth.getCurrentUser());
         return profilesBinding.getRoot();
     }
 
@@ -83,10 +84,6 @@ public class ProfileFragment extends Fragment {
                 callback.onLogOut();
             }
         });
-
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
