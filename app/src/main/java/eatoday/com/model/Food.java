@@ -3,7 +3,7 @@ package eatoday.com.model;
 import android.net.Uri;
 
 public class Food {
-    private String FoodId;
+//    private String FoodId;
     private String nameFood;
     private String linKVideo;
     private String describle;
@@ -13,8 +13,8 @@ public class Food {
     public Food() {
     }
 
-    public Food(String FoodId,String nameFood,String ingredient, String linKVideo, String describle, String imageFood) {
-        this.FoodId = FoodId;
+    public Food(String nameFood,String ingredient, String linKVideo, String describle, String imageFood) {
+     //   this.FoodId = FoodId;
         this.nameFood = nameFood;
         this.linKVideo = linKVideo;
         this.describle = describle;
@@ -52,13 +52,13 @@ public class Food {
     public void setImageFood(String imageFood) {
         this.imageFood = imageFood;
     }
-    public String getFoodId() {
-        return FoodId;
-    }
-
-    public void setFoodId(String foodId) {
-        FoodId = foodId;
-    }
+//    public String getFoodId() {
+//        return FoodId;
+//    }
+//
+//    public void setFoodId(String foodId) {
+//        FoodId = foodId;
+//    }
 
     public String getIngredient() {
         return ingredient;

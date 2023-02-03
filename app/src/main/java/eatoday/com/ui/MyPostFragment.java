@@ -78,7 +78,8 @@ public class MyPostFragment extends Fragment {
     Uri resultUri = Uri.parse("android.resource://com.example.chetan.printerprinting/" + R.drawable.ic_food_placeholder);
     SimpleDateFormat formatter = new SimpleDateFormat("HHmmss");
     Date date = new Date();
-    String idfood = getRandomString(3) + formatter.format(date);
+   String idfood = getRandomString(3) + formatter.format(date);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,8 +147,7 @@ public class MyPostFragment extends Fragment {
         circleImageView.setOnClickListener(v12 -> SelectImage());
         return view;
     }
-
-    private void SelectImage() {
+        private void SelectImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
