@@ -40,42 +40,53 @@ public class HomeFragment extends Fragment {
     private RecyclerView recview;
     private FirebaseAuth mAuth;
     private String user;
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    private String mParam1;
+    private String mParam2;
+
+    public HomeFragment() {
+    }
+
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view=inflater.inflate(R.layout.fragment_home, container, false);
-        recview=(RecyclerView)view.findViewById(R.id.list_item);
-        recview.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        mList = new ArrayList<>();
-        foodAdapters = new FoodAdapters(mList);
-        recview.setAdapter(foodAdapters);
-        getListFoodFromRealtime();
-        return view;
-    }
-    private void getListFoodFromRealtime(){
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser().getUid();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Foods").child("datas").child(user);
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Food food = dataSnapshot.getValue(Food.class);
-                    mList.add(food);
-                }
-                foodAdapters.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(),"error",Toast.LENGTH_SHORT).show();
-            }
-        });
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
-
+    //    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//
+//        View view = inflater.inflate(R.layout.fragment_home, container, false);
+//
+//        recview = (RecyclerView) view.findViewById(R.id.list_item);
+////        recview.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recview.setLayoutManager(new GridLayoutManager(getContext(), 2));
+//        mAuth = FirebaseAuth.getInstance();
+//        user = mAuth.getCurrentUser().getUid();
+//        FirebaseRecyclerOptions<Food> options =
+//                new FirebaseRecyclerOptions.Builder<Food>()
+//                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Foods").child("datas").child(user), Food.class).build();
+//        foodAdapters = new FoodAdapters(options);
+//        recview.setAdapter(foodAdapters);
+//        return view;
+//
+//    }
+//
 //    @Override
 //    public void onStart() {
 //        super.onStart();
@@ -87,4 +98,39 @@ public class HomeFragment extends Fragment {
 //        super.onStop();
 //        foodAdapters.stopListening();
 //    }
+//}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        recview = (RecyclerView) view.findViewById(R.id.list_item);
+        recview.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mList = new ArrayList<>();
+        foodAdapters = new FoodAdapters(mList);
+        recview.setAdapter(foodAdapters);
+        getListFoodFromRealtime();
+        return view;
+    }
+
+    private void getListFoodFromRealtime() {
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser().getUid();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Foods").child("datas").child(user);
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Food food = dataSnapshot.getValue(Food.class);
+                    mList.add(food);
+                }
+                foodAdapters.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

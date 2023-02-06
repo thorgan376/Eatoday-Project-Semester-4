@@ -39,7 +39,5 @@
             android:queryHint="Search anything"
             android:searchIcon="@drawable/ic_search"
             android:theme="@style/SearchView" />
-
-
     </RelativeLayout>
 </FrameLayout>

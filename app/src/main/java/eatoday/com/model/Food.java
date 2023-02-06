@@ -4,29 +4,29 @@ import android.net.Uri;
 
 public class Food {
 //    private String FoodId;
-    private String nameFood;
+    private String foodName;
     private String linKVideo;
     private String describle;
-    private String imageFood;
+    private String foodImage;
     private String ingredient;
 
     public Food() {
     }
 
-    public Food(String nameFood,String ingredient, String linKVideo, String describle, String imageFood) {
+    public Food(String foodName,String ingredient, String linKVideo, String describle, String foodImage) {
      //   this.FoodId = FoodId;
-        this.nameFood = nameFood;
+        this.foodName = foodName;
         this.linKVideo = linKVideo;
         this.describle = describle;
         this.ingredient = ingredient;
-        this.imageFood = imageFood;
+        this.foodImage = foodImage;
     }
     public String getNameFood() {
-        return nameFood;
+        return foodName;
     }
 
-    public void setNameFood(String nameFood) {
-        this.nameFood = nameFood;
+    public void setNameFood(String foodName) {
+        this.foodName = foodName;
     }
 
     public String getLinKVideo() {
@@ -46,19 +46,12 @@ public class Food {
     }
 
     public String getImageFood() {
-        return imageFood;
+        return foodImage;
     }
 
-    public void setImageFood(String imageFood) {
-        this.imageFood = imageFood;
+    public void setImageFood(String foodImage) {
+        this.foodImage = foodImage;
     }
-//    public String getFoodId() {
-//        return FoodId;
-//    }
-//
-//    public void setFoodId(String foodId) {
-//        FoodId = foodId;
-//    }
 
     public String getIngredient() {
         return ingredient;

@@ -27,7 +27,7 @@ public class ProfileFragment extends Fragment {
     private Callback callback;
     private FragmentProfilesBinding profilesBinding;
     private FirebaseAuth mAuth;
-
+    private MyPostFragment myPostFragment = new MyPostFragment();
     private static final String RELOAD_INFO = "Reload profiles info";
 
     public interface Callback{
@@ -38,7 +38,6 @@ public class ProfileFragment extends Fragment {
     public void setCallback(Callback callback){
         this.callback = callback;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

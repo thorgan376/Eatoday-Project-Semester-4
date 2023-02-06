@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -56,15 +58,10 @@ import eatoday.com.R;
 import eatoday.com.model.Food;
 
 public class MyPostFragment extends Fragment {
-    private static final int SELECT_FILE = 1;
     private final int PICK_IMAGE_REQUEST = 22;
-    //private Uri filePath;
-    Button btnPost;
-    private static final int RESULT_LOAD_IMAGE = 1;
-    int SELECT_PICTURE = 200;
-    //ImageView circleImageView;
-    CircleImageView circleImageView;
-    Food food;
+    private Button btnPost;
+    private CircleImageView circleImageView;
+    private Food food;
     private EditText edt_namefood;
     private EditText edt_Ingredient;
     private EditText edt_Describle;
@@ -74,15 +71,23 @@ public class MyPostFragment extends Fragment {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private FirebaseAuth mAuth;
+    private Toolbar toolbar_1;
     private String user;
-    Uri resultUri = Uri.parse("android.resource://com.example.chetan.printerprinting/" + R.drawable.ic_food_placeholder);
-    SimpleDateFormat formatter = new SimpleDateFormat("HHmmss");
-    Date date = new Date();
-   String idfood = getRandomString(3) + formatter.format(date);
-
+    private Uri resultUri = Uri.parse("android.resource://com.example.chetan.printerprinting/" + R.drawable.ic_food_placeholder);
+    private SimpleDateFormat formatter = new SimpleDateFormat("HHmmss");
+    private Date date = new Date();
+    private String idfood = getRandomString(3) + formatter.format(date);
+    private Callback callback;
+    public interface Callback{
+        void onBack();
+    }
+    public void setCallback(Callback callback){
+        this.callback = callback;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     public void onResume() {
@@ -115,6 +120,7 @@ public class MyPostFragment extends Fragment {
         edt_Ingredient = view.findViewById(R.id.txtIngredient);
         circleImageView = view.findViewById(R.id.imageFood);
         edt_link = view.findViewById(R.id.txtLinkVideo);
+        toolbar_1 = view.findViewById(R.id.toolbar_detail_post);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser().getUid();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -145,9 +151,18 @@ public class MyPostFragment extends Fragment {
         });
         btnPost.setOnClickListener(v -> addListener(v));
         circleImageView.setOnClickListener(v12 -> SelectImage());
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar_1);
+        toolbar_1.setNavigationOnClickListener(v -> onBackPressed());
         return view;
     }
-        private void SelectImage() {
+
+    private void onBackPressed() {
+        if (callback != null) {
+            callback.onBack();
+        }
+    }
+
+    private void SelectImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -179,15 +194,15 @@ public class MyPostFragment extends Fragment {
     }
 
     private void addListener(View v) {
-        String namefoods = edt_namefood.getText().toString();
+        String foodName = edt_namefood.getText().toString();
         String ingredient = edt_Ingredient.getText().toString();
         String describle = edt_Describle.getText().toString();
         String link = edt_link.getText().toString();
-        if (!namefoods.isEmpty() && !ingredient.isEmpty() && !describle.isEmpty() && !link.isEmpty()) {
+        if (!foodName.isEmpty() && !ingredient.isEmpty() && !describle.isEmpty() && !link.isEmpty()) {
             //Log.v(TAG, "index=" + image);
             //Toast.makeText(getActivity(), image + " " + namefoods + " " + ingredient + " " + describle + " " + link, Toast.LENGTH_SHORT).show();
             Food food = new Food();
-            food.setNameFood(namefoods);
+            food.setNameFood(foodName);
             food.setIngredient(ingredient);
             food.setDescrible(describle);
             food.setLinKVideo(link);
@@ -197,19 +212,13 @@ public class MyPostFragment extends Fragment {
             edt_Describle.setText("");
             edt_link.setText("");
             circleImageView.setImageResource(R.drawable.ic_food_placeholder);
-            addDatatoFirebase(namefoods, ingredient, describle, link);
+            addDatatoFirebase(foodName, ingredient, describle, link);
         } else {
             Toast.makeText(getActivity(), "Need to fill information!", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void addDatatoFirebase(String namefood, String Ingredient, String Describle, String link) {
-//        food.setNameFood(namefood);
-//        food.setIngredient(Ingredient);
-//        food.setDescrible(Describle);
-//        food.setLinKVideo(link);
-//        food.setFoodId(idFood);
-//        food.setImageFood(imgFood);
         DatabaseReference myRef = databaseReference;
         if (mAuth.getCurrentUser() != null) {
 //            String idfood = getRandomString(6);
@@ -225,7 +234,7 @@ public class MyPostFragment extends Fragment {
     }
 
     private void setToFireStorage(Uri imageUri) {
-        SimpleDateFormat format = new SimpleDateFormat("DDHHmmss");
+        SimpleDateFormat format = new SimpleDateFormat("HHmmss");
         Date date = new Date();
         final String fileName =  getRandomString(4) + format.format(date);
         if (imageUri != null) {

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +30,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eatoday.com.R;
 import eatoday.com.model.Food;
+import eatoday.com.ui.Detail_Food_Fragment;
 
 public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewholder> {
     private List<Food> mlist;
@@ -36,9 +39,9 @@ public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewhold
     }
     @NonNull
     @Override
-    public FoodAdapters.FoodViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_category, parent, false);
-        return new FoodAdapters.FoodViewholder(view);
+        return new FoodViewholder(view);
     }
 
     @Override
@@ -53,8 +56,16 @@ public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewhold
                 .placeholder(R.drawable.ic_food_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imgFood);
+        holder.imgFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            AppCompatActivity activity=(AppCompatActivity)view.getContext();
+            activity.getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout,
+                            new Detail_Food_Fragment(food.getNameFood(),food.getDescrible(),food.getIngredient(),food.getLinKVideo(),food.getImageFood())).addToBackStack(null).commit();
+            }
+        });
     }
-
     @Override
     public int getItemCount() {
         if(mlist !=null){
@@ -74,7 +85,9 @@ public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewhold
         }
 
     }
-
+}
+//public class FoodAdapters extends FirebaseRecyclerAdapter<Food, FoodAdapters.foodViewholder> {
+//
 //    public FoodAdapters(
 //            @NonNull FirebaseRecyclerOptions<Food> options)
 //    {
@@ -82,34 +95,38 @@ public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewhold
 //    }
 //
 //    @Override
-//    protected void onBindViewHolder(@NonNull foodViewholder holder, int position, @NonNull Food model) {
-//        holder.nameFood.setText(model.getNameFood());
+//    protected void onBindViewHolder(@NonNull foodViewholder holder, int position, @NonNull Food food) {
+//        holder.foodName.setText(food.getNameFood());
 //        Glide.with(holder.imgFood.getContext())
-//                .load(model.getImageFood())
+//                .load(food.getImageFood())
 //                .placeholder(R.drawable.ic_food_placeholder)
 //                .diskCacheStrategy(DiskCacheStrategy.ALL)
 //                .into(holder.imgFood);
+//        holder.imgFood.setOnClickListener(view -> {
+//            AppCompatActivity activity=(AppCompatActivity)view.getContext();
+//            activity.getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.frameLayout,
+//                            new Detail_Food_Fragment(food.getNameFood(),food.getDescrible(),food.getIngredient(),food.getLinKVideo(),food.getImageFood())).addToBackStack(null).commit();
+//        });
 //    }
 //
 //    @NonNull
 //    @Override
-//    public foodViewholder
-//    onCreateViewHolder(@NonNull ViewGroup parent,
-//                       int viewType)
+//    public foodViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
 //    {
-//        View view = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.list_item_category, parent, false);
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_category, parent, false);
 //        return new FoodAdapters.foodViewholder(view);
 //    }
 //    class foodViewholder extends RecyclerView.ViewHolder {
-//        TextView nameFood;
+//        TextView foodName;
 //        ImageView imgFood;
 //        public foodViewholder(@NonNull View itemView)
 //        {
 //            super(itemView);
-//            nameFood = itemView.findViewById(R.id.tvCategory);
+//            foodName = itemView.findViewById(R.id.tvCategory);
 //            imgFood = itemView.findViewById(R.id.imgCategory);
 //        }
 //
 //    }
-}
+//}
+//

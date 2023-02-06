@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private HomeFragment homeFragment = new HomeFragment();
     private NotificationFragment notificationFragment = new NotificationFragment();
-    private Detail_Food_Fragment detail_food_fragment = new Detail_Food_Fragment();
+//    private Detail_Food_Fragment detail_food_fragment = new Detail_Food_Fragment();
     private MyListFragment myListFragment = new MyListFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
     private MyPostFragment myPostFragment = new MyPostFragment();
@@ -133,7 +133,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLogOut() { logOut(); }
         });
-
+        myPostFragment.setCallback(new MyPostFragment.Callback() {
+            @Override
+            public void onBack() {
+                replaceFragment(profileFragment);
+            }
+        });
         loginFragment.setCallback(new LoginFragment.Callback() {
             @Override
             public void onSignIn() {
@@ -162,11 +167,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null) {
-//            reload();
-//        }
-//        updateUI(currentUser);
     }
 
     /*private void signInAnonymously() {
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(notificationFragment);
                 break;
             case R.id.list:
-                replaceFragment(detail_food_fragment);
+                replaceFragment(myListFragment);
                 break;
             case R.id.profile:
                 updateUI(mAuth.getCurrentUser());
