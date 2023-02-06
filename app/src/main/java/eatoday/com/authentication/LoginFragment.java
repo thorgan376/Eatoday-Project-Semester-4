@@ -33,7 +33,7 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private Callback callback;
     private FragmentLoginBinding loginBinding;
-
+s
     public interface Callback{
         void onSignIn();
         void notRegisterSignUp();
@@ -110,6 +110,8 @@ public class LoginFragment extends Fragment {
                                     Toast.LENGTH_SHORT).show();
                             if (callback != null) {
                                 callback.onSignIn();
+                                loginBinding.edtEmailInfo.setText("");
+                                loginBinding.edtPasswordInfo.setText("");
                             }
                         } else {
                             //Sign in fails, display a message to the user

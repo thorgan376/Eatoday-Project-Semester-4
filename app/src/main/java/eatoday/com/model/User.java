@@ -1,20 +1,36 @@
 package eatoday.com.model;
 
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class User {
     private String firstName;
     private String lastName;
     private String userName;
     private String email;
+    private Birthdate birthdate;
 
     public User(){
 
     }
-    public User(String firstName, String lastName, String userName, String email) {
+    public User(String firstName, String lastName, String userName, String email, Birthdate birthdate ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
+        this.birthdate = birthdate;
     }
+
+//    public Map<String, Object> toMap() {
+//        HashMap<String, Object> user = new HashMap<>();
+//        user.put("firstName", firstName);
+//        user.put("lastName", lastName);
+//        user.put("userName", userName);
+//        user.put("email", email);
+//        user.put("birthdate", birthdate);
+//        return user;
+//    }
 
     public String getFirstName() {
         return firstName;
@@ -46,5 +62,9 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Birthdate getBirthdate() {
+        return birthdate;
     }
 }
