@@ -50,19 +50,19 @@ public class FoodAdapters extends RecyclerView.Adapter<FoodAdapters.FoodViewhold
         if(food == null){
             return;
         }
-        holder.nameFood.setText(food.getNameFood());
+        holder.nameFood.setText(food.getFoodName());
         Glide.with(holder.imgFood.getContext())
-                .load(food.getImageFood())
+                .load(food.getFoodImage())
                 .placeholder(R.drawable.ic_food_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imgFood);
         holder.imgFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            AppCompatActivity activity=(AppCompatActivity)view.getContext();
-            activity.getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frameLayout,
-                            new Detail_Food_Fragment(food.getNameFood(),food.getDescrible(),food.getIngredient(),food.getLinKVideo(),food.getImageFood())).addToBackStack(null).commit();
+                AppCompatActivity activity=(AppCompatActivity)view.getContext();
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameLayout,
+                                new Detail_Food_Fragment(food.getFoodName(),food.getDescrible(),food.getIngredient(),food.getLinkVideo(),food.getFoodImage())).addToBackStack(null).commit();
             }
         });
     }

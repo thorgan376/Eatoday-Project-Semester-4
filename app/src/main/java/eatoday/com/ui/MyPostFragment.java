@@ -98,12 +98,9 @@ public class MyPostFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         edt_Ingredient = view.findViewById(R.id.txtIngredient);
-
         view.setOnClickListener(v -> {
             edt_Ingredient.clearFocus();
-
             InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         });
@@ -202,10 +199,10 @@ public class MyPostFragment extends Fragment {
             //Log.v(TAG, "index=" + image);
             //Toast.makeText(getActivity(), image + " " + namefoods + " " + ingredient + " " + describle + " " + link, Toast.LENGTH_SHORT).show();
             Food food = new Food();
-            food.setNameFood(foodName);
+            food.setFoodName(foodName);
             food.setIngredient(ingredient);
             food.setDescrible(describle);
-            food.setLinKVideo(link);
+            food.setLinkVideo(link);
             // food.setFoodId(idfood);
             edt_namefood.setText("");
             edt_Ingredient.setText("");

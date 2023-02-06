@@ -6,11 +6,11 @@
     android:background="@android:color/white">
 
     <LinearLayout
+        android:id="@+id/loginPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/loginPage"
-        >
+        android:orientation="vertical">
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,32 +59,52 @@
 
                 />
 
-            <TableLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="0,1">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enter your email"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_marginStart="40dp"
+                    android:textStyle="bold" />
 
                 <EditText
-                    android:layout_width="328dp"
+                    android:id="@+id/edt_email_info"
+                    android:layout_width="338dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="36dp"
-                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="36dp"
-                    android:background="@drawable/custom_input"
-                    android:hint="Enter email address"
-                    android:id="@+id/edt_email_info"/>
+                    android:background="@drawable/custom_input" />
 
-                <EditText
-                    android:layout_width="328dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="36dp"
-                    android:inputType="textPassword"
-                    android:background="@drawable/custom_input"
-                    android:hint="Enter password"
-                    android:id="@+id/edt_password_info"/>
-            </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enter your password"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="40dp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true">
+                    <EditText
+                        android:id="@+id/edt_password_info"
+                        android:layout_width="338dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="36dp"
+                        android:layout_marginEnd="36dp"
+                        android:background="@drawable/custom_input"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_forgotPassword"
@@ -97,9 +117,10 @@
                 android:text="Forgot password?"
                 android:textAppearance="@style/by_clicking"
                 android:textFontWeight="400"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
             <Button
+                android:id="@+id/btn_signIn"
                 android:layout_width="328dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="36dp"
@@ -109,8 +130,7 @@
                 android:fontFamily="@font/font_outfit_bold"
                 android:text="Log In"
                 android:textFontWeight="400"
-                android:textSize="18dp"
-                android:id="@+id/btn_signIn"/>
+                android:textSize="18dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -137,7 +157,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/bg_image_button"
-                    android:src="@drawable/ic_facebook"/>
+                    android:src="@drawable/ic_facebook" />
 
                 <ImageButton
                     android:id="@+id/img_btn_google"
@@ -153,18 +173,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
                 android:layout_marginTop="40dp"
-                >
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Not register ?"
-                    android:textSize="17dp"
                     android:layout_marginEnd="10dp"
-                    />
+                    android:text="Not register ?"
+                    android:textSize="17dp" />
 
                 <Button
                     android:id="@+id/btn_notRegister_signUp"

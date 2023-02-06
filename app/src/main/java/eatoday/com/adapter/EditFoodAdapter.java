@@ -52,9 +52,9 @@ public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditVi
         if (food == null) {
             return;
         }
-        holder.nameEditFood.setText(food.getNameFood());
+        holder.nameEditFood.setText(food.getFoodName());
         Glide.with(holder.imgEditFood.getContext())
-                .load(food.getImageFood())
+                .load(food.getFoodImage())
                 .placeholder(R.drawable.ic_food_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imgEditFood);
@@ -156,5 +156,4 @@ public class EditFoodAdapter extends RecyclerView.Adapter<EditFoodAdapter.EditVi
 //        }
 //
 //    }
-
 

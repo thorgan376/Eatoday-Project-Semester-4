@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,7 +43,14 @@ public class MyListFragment extends Fragment {
     private RecyclerView recyclerView;
     private FirebaseAuth mAuth;
     private String user;
-
+    private Callback callback;
+    private Toolbar toolbar_all;
+    public interface Callback{
+        void onBackProfile();
+    }
+    public void setCallback(Callback callback){
+        this.callback = callback;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,8 +62,18 @@ public class MyListFragment extends Fragment {
         editFoodAdapter = new EditFoodAdapter(mList);
         recyclerView.setAdapter(editFoodAdapter);
         getListFoodFromRealtime();
+        toolbar_all = view.findViewById(R.id.toolbar_detail_all);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar_all);
+        toolbar_all.setNavigationOnClickListener(v -> onBackProfile());
         return view;
     }
+
+    private void onBackProfile() {
+        if (callback != null) {
+            callback.onBackProfile();
+        }
+    }
+
     private void getListFoodFromRealtime(){
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser().getUid();

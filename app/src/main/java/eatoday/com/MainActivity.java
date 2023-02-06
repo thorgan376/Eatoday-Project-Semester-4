@@ -70,45 +70,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public static void hideKeyboard(Activity context) {
-        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow( context.getCurrentFocus().getWindowToken(), 0);
-    }
-    public void openMyPostFragment() {
-        // use replace
-        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,myPostFragment).addToBackStack(null).commit();
-//        replaceFragment(myPostFragment);
-//        use add
-//        fragmentManager.beginTransaction().add(R.id.frameLayout, myPostFragment).hide(notificationFragment).commit();
-//        fragmentManager.beginTransaction().hide(active).show(myPostFragment).commit();
-    }
-    public void openAccountFragment() {
-        // use replace
-        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
-        fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
-    }
-
-    public void logOut() {
-        updateUI(null);
-    }
-
-    public void afterSignIn() {
-        updateUI(mAuth.getCurrentUser());
-    }
-
-    public void replaceFragment (Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction() .setCustomAnimations(
-                R.anim.slide_in,  // enter
-                R.anim.fade_out,  // exit
-                R.anim.fade_in,   // popEnter
-                R.anim.slide_out  // popExit
-        );
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction.replace(R.id.frameLayout, fragment).commit();
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLogOut() { logOut(); }
-        });
-        myPostFragment.setCallback(new MyPostFragment.Callback() {
+
             @Override
-            public void onBack() {
-                replaceFragment(profileFragment);
+            public void onClickList() {
+                openMylistFragment();
             }
         });
+        myPostFragment.setCallback(() -> replaceFragment(profileFragment));
         loginFragment.setCallback(new LoginFragment.Callback() {
             @Override
             public void onSignIn() {
@@ -150,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(signUpFragment);
             }
         });
+        myListFragment.setCallback(() -> replaceFragment(profileFragment));
 
         signUpFragment.setCallback(new SignUpFragment.Callback() {
             @Override
@@ -198,9 +160,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.notification:
                 replaceFragment(notificationFragment);
                 break;
-            case R.id.list:
-                replaceFragment(myListFragment);
-                break;
             case R.id.profile:
                 updateUI(mAuth.getCurrentUser());
                 break;
@@ -212,7 +171,47 @@ public class MainActivity extends AppCompatActivity {
         //call super
         super.onActivityResult(requestCode, resultCode, data);
     }
+    public static void hideKeyboard(Activity context) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow( context.getCurrentFocus().getWindowToken(), 0);
+    }
+    public void openMyPostFragment() {
+        // use replace
+        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
+        fragmentTransaction5.replace(R.id.frameLayout,myPostFragment).addToBackStack(null).commit();
+    }
+    public void openAccountFragment() {
+        // use replace
+        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
+        fragmentTransaction5.replace(R.id.frameLayout,accountFragment).addToBackStack(null).commit();
+    }
+    public void openMylistFragment() {
+        // use replace
+        FragmentTransaction fragmentTransaction5 = fragmentManager.beginTransaction();
+        fragmentTransaction5.replace(R.id.frameLayout,myListFragment).addToBackStack(null).commit();
+    }
 
+
+    public void logOut() {
+        updateUI(null);
+    }
+
+    public void afterSignIn() {
+        updateUI(mAuth.getCurrentUser());
+
+    }
+
+    public void replaceFragment (Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction() .setCustomAnimations(
+                R.anim.slide_in,  // enter
+                R.anim.fade_out,  // exit
+                R.anim.fade_in,   // popEnter
+                R.anim.slide_out  // popExit
+        );
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction.replace(R.id.frameLayout, fragment).commit();
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+    }
     private void reload() {
         mAuth.getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

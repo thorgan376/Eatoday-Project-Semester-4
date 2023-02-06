@@ -8,18 +8,38 @@
         android:layout_height="match_parent"
         >
 
-        <TextView
-            android:id="@+id/tvAll"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="6dp"
-            android:text="Popular Dishes"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:elevation="0dp"
+            >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_detail_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:navigationIcon="@drawable/ic_back">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All my post"
+                    android:layout_gravity=""
+                    android:textColor="@android:color/black"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rclist_edit"
             android:layout_width="match_parent"
@@ -28,9 +48,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAll"
             app:layout_constraintVertical_bias="1.0"
-            android:layout_marginTop="46dp"
+            android:layout_marginTop="55dp"
         />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

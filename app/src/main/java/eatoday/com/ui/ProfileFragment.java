@@ -34,6 +34,8 @@ public class ProfileFragment extends Fragment {
         void onClickFood();
         void onClickUser();
         void onLogOut();
+
+        void onClickList();
     }
     public void setCallback(Callback callback){
         this.callback = callback;
@@ -58,6 +60,11 @@ public class ProfileFragment extends Fragment {
         profilesBinding.btnFoods.setOnClickListener(v -> {
             if(callback != null){
                 callback.onClickFood();
+            }
+        });
+        profilesBinding.btnList.setOnClickListener(v -> {
+            if(callback != null){
+                callback.onClickList();
             }
         });
 

@@ -3,9 +3,9 @@ package eatoday.com.model;
 import android.net.Uri;
 
 public class Food {
-//    private String FoodId;
+    //    private String FoodId;
     private String foodName;
-    private String linKVideo;
+    private String linkVideo;
     private String describle;
     private String foodImage;
     private String ingredient;
@@ -13,28 +13,29 @@ public class Food {
     public Food() {
     }
 
-    public Food(String foodName,String ingredient, String linKVideo, String describle, String foodImage) {
-     //   this.FoodId = FoodId;
+    public Food(String foodName, String ingredient, String linkVideo, String describle, String foodImage) {
+        //   this.FoodId = FoodId;
         this.foodName = foodName;
-        this.linKVideo = linKVideo;
+        this.linkVideo = linkVideo;
         this.describle = describle;
         this.ingredient = ingredient;
         this.foodImage = foodImage;
     }
-    public String getNameFood() {
+
+    public String getFoodName() {
         return foodName;
     }
 
-    public void setNameFood(String foodName) {
+    public void setFoodName(String foodName) {
         this.foodName = foodName;
     }
 
-    public String getLinKVideo() {
-        return linKVideo;
+    public String getLinkVideo() {
+        return linkVideo;
     }
 
-    public void setLinKVideo(String linKVideo) {
-        this.linKVideo = linKVideo;
+    public void setLinkVideo(String linkVideo) {
+        this.linkVideo = linkVideo;
     }
 
     public String getDescrible() {
@@ -45,11 +46,11 @@ public class Food {
         this.describle = describle;
     }
 
-    public String getImageFood() {
+    public String getFoodImage() {
         return foodImage;
     }
 
-    public void setImageFood(String foodImage) {
+    public void setFoodImage(String foodImage) {
         this.foodImage = foodImage;
     }
 
@@ -60,6 +61,4 @@ public class Food {
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
-
-
 }

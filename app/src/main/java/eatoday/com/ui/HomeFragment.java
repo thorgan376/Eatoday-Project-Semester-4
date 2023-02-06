@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -104,19 +105,24 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         recview = (RecyclerView) view.findViewById(R.id.list_item);
         recview.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mList = new ArrayList<>();
+        getListFoodFromRealtime();
         foodAdapters = new FoodAdapters(mList);
         recview.setAdapter(foodAdapters);
-        getListFoodFromRealtime();
-        return view;
     }
 
     private void getListFoodFromRealtime() {
         mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser().getUid();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Foods").child("datas").child(user);
+//        user = mAuth.getCurrentUser().getUid();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Foods").child("allData");
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
