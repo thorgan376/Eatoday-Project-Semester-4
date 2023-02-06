@@ -3,38 +3,39 @@ package eatoday.com.model;
 import android.net.Uri;
 
 public class Food {
-    private String FoodId;
-    private String nameFood;
-    private String linKVideo;
+    //    private String FoodId;
+    private String foodName;
+    private String linkVideo;
     private String describle;
-    private String imageFood;
+    private String foodImage;
     private String ingredient;
 
     public Food() {
     }
 
-    public Food(String FoodId,String nameFood,String ingredient, String linKVideo, String describle, String imageFood) {
-        this.FoodId = FoodId;
-        this.nameFood = nameFood;
-        this.linKVideo = linKVideo;
+    public Food(String foodName, String ingredient, String linkVideo, String describle, String foodImage) {
+        //   this.FoodId = FoodId;
+        this.foodName = foodName;
+        this.linkVideo = linkVideo;
         this.describle = describle;
         this.ingredient = ingredient;
-        this.imageFood = imageFood;
-    }
-    public String getNameFood() {
-        return nameFood;
+        this.foodImage = foodImage;
     }
 
-    public void setNameFood(String nameFood) {
-        this.nameFood = nameFood;
+    public String getFoodName() {
+        return foodName;
     }
 
-    public String getLinKVideo() {
-        return linKVideo;
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
-    public void setLinKVideo(String linKVideo) {
-        this.linKVideo = linKVideo;
+    public String getLinkVideo() {
+        return linkVideo;
+    }
+
+    public void setLinkVideo(String linkVideo) {
+        this.linkVideo = linkVideo;
     }
 
     public String getDescrible() {
@@ -45,19 +46,12 @@ public class Food {
         this.describle = describle;
     }
 
-    public String getImageFood() {
-        return imageFood;
+    public String getFoodImage() {
+        return foodImage;
     }
 
-    public void setImageFood(String imageFood) {
-        this.imageFood = imageFood;
-    }
-    public String getFoodId() {
-        return FoodId;
-    }
-
-    public void setFoodId(String foodId) {
-        FoodId = foodId;
+    public void setFoodImage(String foodImage) {
+        this.foodImage = foodImage;
     }
 
     public String getIngredient() {
@@ -67,6 +61,4 @@ public class Food {
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
-
-
 }

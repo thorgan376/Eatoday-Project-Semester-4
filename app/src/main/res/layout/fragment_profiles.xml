@@ -155,6 +155,19 @@
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textSize="15dp" />
+                <Button
+                    android:id="@+id/btn_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_custom_btn_person"
+                    android:drawableLeft="@drawable/ic_list"
+                    android:drawablePadding="12dp"
+                    android:paddingStart="17dp"
+                    android:text="My list"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    android:textSize="15dp" />
 
                 <Button
                     android:id="@+id/btn_logout"

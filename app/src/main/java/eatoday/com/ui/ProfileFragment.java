@@ -28,33 +28,30 @@ import eatoday.com.R;
 import eatoday.com.databinding.FragmentProfilesBinding;
 import eatoday.com.model.User;
 
-
 public class ProfileFragment extends Fragment {
     private FragmentManager fragmentManager;
-    private Callback callback;
+    private MyPostFragment myPostFragment = new MyPostFragment();
     private FragmentProfilesBinding profilesBinding;
+    private Callback callback;
+    
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private ValueEventListener userEventListener;
-
+    
     private static final String RELOAD_INFO = "Reload profiles info";
     private static final String EVENT_USER_LISTENER = "Event user listener";
+    
     public interface Callback{
         void onClickFood();
         void onClickUser();
         void onLogOut();
+
+        void onClickList();
     }
     public void setCallback(Callback callback){
         this.callback = callback;
     }
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // Initialize Firebase Auth
-    }
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,6 +72,11 @@ public class ProfileFragment extends Fragment {
         profilesBinding.btnFoods.setOnClickListener(v -> {
             if(callback != null){
                 callback.onClickFood();
+            }
+        });
+        profilesBinding.btnList.setOnClickListener(v -> {
+            if(callback != null){
+                callback.onClickList();
             }
         });
 
