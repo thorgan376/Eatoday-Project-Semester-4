@@ -157,6 +157,13 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(loginFragment);
             }
         });
+
+        accountFragment.setCallback(new AccountFragment.Callback() {
+            @Override
+            public void onConfirmUpdate() {
+                replaceFragment(profileFragment);
+            }
+        });
     }
 
 //    @Override
