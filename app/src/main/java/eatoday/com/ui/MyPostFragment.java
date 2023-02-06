@@ -217,15 +217,15 @@ public class MyPostFragment extends Fragment {
 
     private void addDatatoFirebase(String namefood, String Ingredient, String Describle, String link) {
         DatabaseReference myRef = databaseReference;
+        DatabaseReference mypost = FirebaseDatabase.getInstance().getReference("Foods").child("allData").child(idfood);
         if (mAuth.getCurrentUser() != null) {
-//            String idfood = getRandomString(6);
-//            String UserID = mAuth.getCurrentUser().getUid();
             Map foodInfo = new HashMap();
             foodInfo.put("foodName", namefood);
             foodInfo.put("ingredient", Ingredient);
             foodInfo.put("describle", Describle);
             foodInfo.put("linkVideo", link);
             myRef.updateChildren(foodInfo);
+            mypost.updateChildren(foodInfo);
             setToFireStorage(resultUri);
         }
     }
@@ -240,7 +240,9 @@ public class MyPostFragment extends Fragment {
                 str.child("profileImage").child(fileName).getDownloadUrl().addOnSuccessListener(DownloadUri -> {
                     FirebaseDatabase database = firebaseDatabase;
                     DatabaseReference mref = databaseReference.child("foodImage");
+                    DatabaseReference mypost =firebaseDatabase.getReference("Foods").child("allData").child(idfood).child("foodImage");
                     mref.setValue(DownloadUri.toString());
+                    mypost.setValue(DownloadUri.toString());
                     Toast.makeText(getActivity(), "Data updated", LENGTH_SHORT).show();
                 }).addOnFailureListener(exception -> Toast.makeText(getActivity(), "Error", LENGTH_SHORT).show());
             });
