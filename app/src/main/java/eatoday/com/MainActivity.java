@@ -27,6 +27,7 @@ import eatoday.com.authentication.SignUpFragment;
 import eatoday.com.databinding.ActivityMainBinding;
 import eatoday.com.databinding.FragmentProfilesBinding;
 import eatoday.com.ui.AccountFragment;
+import eatoday.com.ui.ChangePasswordFragment;
 import eatoday.com.ui.Detail_Food_Fragment;
 import eatoday.com.ui.HomeFragment;
 import eatoday.com.ui.MyListFragment;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private AccountFragment accountFragment = new AccountFragment();
     private LoginFragment loginFragment = new LoginFragment();
     private SignUpFragment signUpFragment = new SignUpFragment();
+    private ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
 
@@ -93,13 +95,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onLogOut() {
-                logOut();
-            }
+            public void onLogOut() { logOut(); }
 
             @Override
             public void onClickList() {
                 openMylistFragment();
+            }
+
+            @Override
+            public void onClickChangePassword() {
+                replaceFragment(changePasswordFragment);
             }
         });
         myPostFragment.setCallback(() -> replaceFragment(profileFragment));
