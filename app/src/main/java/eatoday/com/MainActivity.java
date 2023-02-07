@@ -34,6 +34,7 @@ import eatoday.com.ui.MyListFragment;
 import eatoday.com.ui.MyPostFragment;
 import eatoday.com.ui.NotificationFragment;
 import eatoday.com.ui.ProfileFragment;
+import eatoday.com.ui.ReAuthenticateUserFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private LoginFragment loginFragment = new LoginFragment();
     private SignUpFragment signUpFragment = new SignUpFragment();
     private ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
+    private ReAuthenticateUserFragment reAuthenticateUserFragment = new ReAuthenticateUserFragment();
     private FragmentManager fragmentManager;
     private Fragment active = homeFragment;
 
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClickChangePassword() {
-                replaceFragment(changePasswordFragment);
+                replaceFragment(reAuthenticateUserFragment);
             }
         });
         myPostFragment.setCallback(() -> replaceFragment(profileFragment));
@@ -143,6 +145,12 @@ public class MainActivity extends AppCompatActivity {
         changePasswordFragment.setCallback(new ChangePasswordFragment.Callback() {
             @Override
             public void onConfirmChangePass() { replaceFragment(profileFragment); }
+        });
+        reAuthenticateUserFragment.setCallback(new ReAuthenticateUserFragment.Callback() {
+            @Override
+            public void onContinue() {
+                replaceFragment(changePasswordFragment);
+            }
         });
     }
 

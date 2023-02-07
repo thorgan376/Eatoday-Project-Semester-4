@@ -61,26 +61,6 @@ public class ChangePasswordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        changePasswordBinding.edtOldPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                TextInputLayout old_pass = changePasswordBinding.oldTextInputLayout;
-                if (changePasswordBinding.edtOldPassword.length() != 0) {
-                    old_pass.setEndIconMode(old_pass.END_ICON_PASSWORD_TOGGLE);
-                } else {
-                    old_pass.setEndIconMode(old_pass.END_ICON_NONE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-
         changePasswordBinding.edtNewPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -130,39 +110,39 @@ public class ChangePasswordFragment extends Fragment {
     }
 
     private void onConfirmPassClicked() {
-        String oldPassword = changePasswordBinding.edtOldPassword.getText().toString();
         String newPassword = changePasswordBinding.edtNewPassword.getText().toString();
         String confirmPassword = changePasswordBinding.edtConfirmNewPassword.getText().toString();
-        if (!validateForm(changePasswordBinding.edtOldPassword) ||
-                !validateForm(changePasswordBinding.edtNewPassword) ||
+        if (!validateForm(changePasswordBinding.edtNewPassword) ||
                 !validateForm(changePasswordBinding.edtConfirmNewPassword)) {
+            return;
+        }
 
-            return;
-        }
-        if (oldPassword.equals(newPassword) || oldPassword.equals(confirmPassword)) {
-            Toast.makeText(getContext(),
-                    "Mật khẩu cũ và mới phải khác nhau",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (!newPassword.equals(confirmPassword)) {
             Toast.makeText(getContext(),
                     "Mật khẩu mới và xác nhận phải giống nhau",
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        changePassword(oldPassword, newPassword, confirmPassword);
+        changePassword(newPassword, confirmPassword);
     }
 
-    private void reAuthUser() {
-//        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(),  )
+    private void changePassword(String newPass, String confirmPass) {
+        user.updatePassword(newPass).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
 
-    }
-
-    private void changePassword(String oldPass, String newPass, String confirmPass) {
-        if (callback != null) {
-            callback.onConfirmChangePass();
-        }
+                if (callback != null) {
+                    changePasswordBinding.edtNewPassword.setText("");
+                    changePasswordBinding.edtConfirmNewPassword.setText("");
+                    callback.onConfirmChangePass();
+                    Toast.makeText(getContext(),
+                            "Successfully change password", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Log.e(CHANGE_PASSWORD, "Error when change user password: ", task.getException());
+                Toast.makeText(getContext(),
+                        "Can't change user password, try again later", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private boolean validateForm(EditText editText) {
