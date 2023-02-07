@@ -139,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(profileFragment);
             }
         });
+
+        changePasswordFragment.setCallback(new ChangePasswordFragment.Callback() {
+            @Override
+            public void onConfirmChangePass() { replaceFragment(profileFragment); }
+        });
     }
 
 //    @Override
