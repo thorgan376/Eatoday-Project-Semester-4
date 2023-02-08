@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -53,6 +55,10 @@ public class EmailVerificationFragment extends Fragment {
 
         verificationBinding.btnSentEmail.setOnClickListener(v -> {
             sendEmailVerification();
+        });
+
+        verificationBinding.btnReload.setOnClickListener(v -> {
+            reload();
         });
 
         //initialize
@@ -112,6 +118,26 @@ public class EmailVerificationFragment extends Fragment {
                     "User = null, request fix userEventListener",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void reload() {
+        mAuth.getCurrentUser().reload().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.e(EMAIL_VERIFICATION, "Success");
+                if (!mAuth.getCurrentUser().isEmailVerified()) {
+                    Toast.makeText(getContext(),
+                            "Email still not verified",
+                            Toast.LENGTH_SHORT).show();
+                }
+                switchStateVerify(mAuth.getCurrentUser());
+            } else {
+                Log.e(EMAIL_VERIFICATION, "Reload error when check email verify status", task.getException());
+                Toast.makeText(getContext(),
+                        "Failed to reload email verify status",
+                        Toast.LENGTH_SHORT).show();
+                switchStateVerify(null);
+            }
+        }); //reload user information - Testing only
     }
 
     private void switchStateVerify(FirebaseUser user) {
